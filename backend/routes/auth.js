@@ -81,25 +81,6 @@ router.post('/signUp', async(req,res)=>{
 
             const data = await OtpModel.find({email, code})
 
-            console.log(data)
-
-            // if(data !== []){
-            //     res.status(404).send('Invalid OTP')
-            // } 
-            
-            // if(data === []){
-                // const user = await Users.findOne({email});
-
-                // const password = req.body.password
-                // const hashedPassword = await bcrypt.hash(password,12)
-                // user.password = hashedPassword
-
-                // await user.save()
-
-                // res.status(201).send(user)
-            // }
-
-            
                 if(data && data.length > 0){
                 const user = await Users.findOne({email});
 

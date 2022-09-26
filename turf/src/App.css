@@ -74,3 +74,43 @@ tr:nth-child(even) {
   color: white;
 }
 
+/* -------------------- reviews -------------------*/
+
+.testimonials{
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 27px;
+}
+
+.h1{
+  font-family: "Roboto", Sans-serif;
+  font-size: 3.5rem;
+  color: #348C31;
+}
+
+.hidden{
+  content: '';
+  width: 300px;
+  height: 3px;
+  background-color: gray;
+  border-radius: 99px;
+  opacity: 0.7;
+}
+
+.reviews{
+  background-color: whitesmoke;
+  object-fit: contain;
+  text-align: left;
+  font-family: cursive;
+  width: 550px;
+  height: 300px;
+  box-shadow: 1px 5px 5px gray;
+  padding: 4px 17px;
+  margin: 20px;
+  transition: transform 450ms;
+}
+.reviews:hover{
+  transform: scale(1.1);
+}
+
+

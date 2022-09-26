@@ -45,6 +45,9 @@ const Header = () => {
           <Link to={'/about'} style={{textDecoration:'none'}}>
             <li><h4>About</h4></li>
           </Link>
+          <Link to={'/testimonials'} style={{textDecoration:'none'}}>
+            <li><h4>Testimonials</h4></li>
+          </Link>
           <Link to={'/book'} style={{textDecoration:'none'}}>
             <li><h4>Book Turf</h4></li>
           </Link>

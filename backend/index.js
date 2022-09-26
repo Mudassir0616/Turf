@@ -4,6 +4,8 @@ import cors from 'cors'
 import adminRoutes from './routes/admin.js'
 import userRoutes from './routes/auth.js'
 import bookRoutes from './routes/booking.js'
+import contactRoutes from './routes/contact.js'
+import reviewRoutes from './routes/review.js'
 const app = express()
 
 app.use(express.json())
@@ -12,6 +14,8 @@ app.use(cors())
 app.use('/users', userRoutes)
 app.use('/admin', adminRoutes)
 app.use('/booking', bookRoutes)
+app.use('/contact', contactRoutes)
+app.use('/reviews', reviewRoutes)
 
 const PORT = process.env.PORT || 4001
 

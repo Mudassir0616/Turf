@@ -9,6 +9,7 @@ import Reservation from './components/Reservation';
 import Contact from './components/Contact';
 import ResetPass from './components/ResetPass';
 import Admin from './components/Admin';
+import Testimonials from './components/Testimonials';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path={'/book'} exact component={Book}/>
         <Route path={'/registration'} exact component={Regsiter}/>
         <Route path={'/reservations'} exact component={Reservation}/>
+        <Route path={'/testimonials'} exact component={Testimonials}/>
         <Route path={'/admin'} exact component={Admin}/>
         <Route path={'/contact-us'} exact component={Contact}/>
         <Route path={'/reset'} exact component={ResetPass}/>

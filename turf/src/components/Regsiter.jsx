@@ -32,6 +32,7 @@ const Regsiter = () => {
       } else{
         const {data}= await axios.post(`${url}/signIn`,formData)
         localStorage.setItem('userProfile', JSON.stringify(data))
+        console.log(data)
         history.push('/')
       }
      } catch (error) {
@@ -48,7 +49,7 @@ const Regsiter = () => {
   }
   return (
     <div style={{display:'flex',alignItems:'center',justifyContent:'center', margin:'40px 0' }}>
-    <div style={{border:'none', padding:'20px 30px', borderRadius:'34px', boxShadow:'3px 5px 15px gray '}}>
+    <div style={{border:'none', padding:'20px 30px', borderRadius:'34px', boxShadow:'3px 5px 15px gray'}}>
       <form onSubmit={handleSubmit} className='form'>
 
         <Avatar className='avatar'>
@@ -65,7 +66,7 @@ const Regsiter = () => {
         <input type="text" name="email" placeholder='@gmail.com' onChange={handleChange} required/>&nbsp;
         {isLogin && <input type="text" name="number" placeholder='+ 91' maxLength={10} onChange={handleChange} required/>}<br />
         <input type="password" name="password" placeholder='password*' onChange={handleChange} required/><br />
-        {!isLogin && <Link to={'/reset'}><span style={{color:'#347C98'}}> Forgot Password ? </span></Link>}
+        {!isLogin && <Link to={'/reset'} style={{textDecoration:'none'}}><span style={{color:'#347C98'}}> Forgot Password ? </span></Link>}
         {isLogin && (
         <input type="password" name="cPassword" placeholder='Confirm Password*' onChange={handleChange}/>
         )}<br/>
