@@ -39,4 +39,15 @@ router.delete('/:id', async(req, res)=>{
     await Review.findByIdAndRemove(id)
     res.json('Post Deleted !!!')
 })
+
+router.patch('/:id', async(req,res)=>{
+    const id  = req.params.id;
+    const body = req.body
+
+    const update = await Review.findByIdAndUpdate(id, body, {new: true})
+
+    res.send(update)
+})
+
+
 export default router

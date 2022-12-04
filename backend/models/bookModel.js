@@ -32,8 +32,7 @@ const bookSchema = mongoose.Schema({
         default: new Date().getHours()
     },
     price:{
-        type: String,
-        default: 1700
+        type: String
     }
 })
 

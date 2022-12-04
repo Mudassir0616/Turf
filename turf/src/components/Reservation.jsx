@@ -3,7 +3,6 @@ import React from 'react'
 import { useEffect, useState } from 'react'
 import moment from 'moment'
 import DeleteIcon from '@mui/icons-material/Delete';
-import { textAlign } from '@mui/system';
 
 const Reservation = () => {
     const url = 'http://localhost:4001/booking'
@@ -39,7 +38,7 @@ const Reservation = () => {
                 <th>Address</th>
                 <th>Sport</th>
                 <th>Players</th>
-                <th>Date</th>
+                <th style={{textAlign:'center'}}>Date</th>
                 <th>Timing</th>
                 <th>Price</th>
                 <th>Cancel</th>
@@ -50,7 +49,7 @@ const Reservation = () => {
                     <td>{booking.email}</td>
                     <td>{booking.address}</td>
                     <td>{booking.sport}</td>
-                    <td>{booking.players}</td>
+                    <td style={{textAlign:'center'}}>{booking.players}</td>
                     <td>{moment(booking.date).format('MM/DD/YYYY')}</td>
                     <td>{booking.time}</td>
                     <td>{booking.price}₹</td>

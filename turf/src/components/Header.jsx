@@ -40,24 +40,24 @@ const Header = () => {
       <div className='links'>
         <ul>
           <Link to={'/'} style={{textDecoration:'none'}}>
-            <li><h4>Home</h4></li>
+            <li><p>Home</p></li>
           </Link>
           <Link to={'/about'} style={{textDecoration:'none'}}>
-            <li><h4>About</h4></li>
+            <li><p>About</p></li>
           </Link>
           <Link to={'/testimonials'} style={{textDecoration:'none'}}>
-            <li><h4>Testimonials</h4></li>
+            <li><p>Testimonials</p></li>
           </Link>
           <Link to={'/book'} style={{textDecoration:'none'}}>
-            <li><h4>Book Turf</h4></li>
+            <li><p>Book Turf</p></li>
           </Link>
           {user?.admin === true && (
             <Link to={'/reservations'} style={{textDecoration:'none'}}>
-            <li><h4>All Bookings</h4></li>
+            <li><p>All Bookings</p></li>
           </Link>
           )}
           <Link to={'/contact-us'} style={{textDecoration:'none'}}>
-            <li><h4>Contact Us</h4></li>
+            <li><p>Contact Us</p></li>
           </Link>
         </ul>
       </div>
@@ -73,11 +73,11 @@ const Header = () => {
         ): (
           <>
           <Link to={'/registration'}>
-          <button style={{backgroundColor:'#348C31', color:'white', border:'none', padding:'10px 15px', borderRadius:'6px'}}>Register</button>
+          <button className='sign-btn'>Register</button>
           </Link>
           &nbsp;&nbsp;&nbsp;
           <Link to={'/admin'}>
-          <button style={{backgroundColor:'#348C31', color:'white', border:'none', padding:'10px 15px', borderRadius:'6px'}}>Admin</button>
+          <button className='sign-btn'>Admin</button>
           </Link>
           </>
         )}

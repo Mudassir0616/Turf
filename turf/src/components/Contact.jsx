@@ -12,7 +12,6 @@ const Contact = () => {
 
   const handleSubmit = async(e)=>{
     e.preventDefault()
-    console.log(contact)
     const { data } = await axios.post(url,contact)
     
     try {

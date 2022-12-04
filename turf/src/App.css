@@ -20,14 +20,52 @@
 }
 .links li{
   margin: 0 20px;
+  position: relative;
 }
-.links h4{
+.links p{
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 17px;
+  font-weight: 500;
   color: gray;
+}
+.links p:after{
+  content: '';
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #348C31;
+  transform-origin: bottom right;
+  transition: transform 0.3s ease-out;
+}
+.links p:hover::after{
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+.sign-btn{
+  padding: 10px 15px;
+  background-color: #dddddd;
+  color: gray;
+  border: none;
+  border-radius: 6px;
+  transition: 0.3s;
+}
+.sign-btn:hover{
+  transform: scale(1.1);
+  color: white;
+  background-color: #348C31;
 }
 .switch{
   background-color: none;
-  color: #347C98;
+  color: gray;
   border: none;
+  font-size: 14px;
+  transition: 0.1s;
+}
+.switch:hover{
+  color: #207697;
 }
 .form{
   display: flex;
@@ -41,12 +79,8 @@
 }
 .form input{
   width: 270px;
-  padding: 9px 0;
-  padding-left: 10px;
-  border-radius: 7px;
-  font-size: 15px;
 }
-.submit{
+/* .submit{
   background-color:#348C31;
   color: white;
   border: none;
@@ -55,13 +89,16 @@
   border-radius: 10px;
   font-size: 19px;
   
-}
+} */
 .table{
   text-align: center;
   margin: 50px 0; 
   display: flex;
   flex-wrap: wrap;
   overflow-y: hidden;
+}
+.table th{
+  font-weight: 500;
 }
 .table td, th {
   border: 1px solid #dddddd;
@@ -79,13 +116,20 @@ tr:nth-child(even) {
 .testimonials{
   display: flex;
   flex-wrap: wrap;
-  padding-left: 27px;
+  justify-content: center;
+  margin-bottom: 20px;
+  width: 100vw;
 }
 
 .h1{
   font-family: "Roboto", Sans-serif;
   font-size: 3.5rem;
   color: #348C31;
+  transition: 0.3s;
+}
+.h1:hover{
+  color: gray;
+  opacity: 0.7;
 }
 
 .hidden{
@@ -102,10 +146,10 @@ tr:nth-child(even) {
   object-fit: contain;
   text-align: left;
   font-family: cursive;
-  width: 550px;
-  height: 300px;
+  width: 560px;
+  height: auto;
   box-shadow: 1px 5px 5px gray;
-  padding: 4px 17px;
+  padding: 24px 17px;
   margin: 20px;
   transition: transform 450ms;
 }

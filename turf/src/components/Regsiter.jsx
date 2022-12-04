@@ -2,7 +2,7 @@ import axios from 'axios'
 import React,{useState} from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import KeyIcon from '@mui/icons-material/Key';
-import { Avatar } from '@mui/material'
+import { Avatar, Button, TextField } from '@mui/material'
 
 
 const initialState = { name:'', email:'',number:'', password:'', cPassword:''}
@@ -60,21 +60,25 @@ const Regsiter = () => {
         <br />
         {isLogin && (
           <>
-        <input type="text" name="name" placeholder='Name' onChange={handleChange} required/>
+        {/* <input type="text" name="name" placeholder='Name' onChange={handleChange} required/> */}
+        <TextField label='Name' name='name' onChange={handleChange} required fullWidth/>
           </>
         )}<br/>
-        <input type="text" name="email" placeholder='@gmail.com' onChange={handleChange} required/>&nbsp;
-        {isLogin && <input type="text" name="number" placeholder='+ 91' maxLength={10} onChange={handleChange} required/>}<br />
-        <input type="password" name="password" placeholder='password*' onChange={handleChange} required/><br />
+        <TextField label='@gmail.com' name='email' onChange={handleChange} required fullWidth/>&nbsp;
+        {isLogin && <TextField label='+ 91' name='number' onChange={handleChange} fullWidth/>}<br />
+        <TextField label='Password' type='password' name='password' onChange={handleChange} required fullWidth/><br />
         {!isLogin && <Link to={'/reset'} style={{textDecoration:'none'}}><span style={{color:'#347C98'}}> Forgot Password ? </span></Link>}
         {isLogin && (
-        <input type="password" name="cPassword" placeholder='Confirm Password*' onChange={handleChange}/>
+        <TextField label='Confirm Password' name='cPassword' type='password' onChange={handleChange} required fullWidth/>
         )}<br/>
         
-        <button type='submit' className='submit'>{isLogin ? 'Sign Up': 'Sign In'}</button>
+        {/* <button type='submit' className='submit'>{isLogin ? 'Sign Up': 'Sign In'}</button> */}
+        <Button type='submit' fullWidth variant='contained' color='secondary'>{isLogin ? 'Sign Up': 'Sign In'}</Button>
         <br />
       </form>
+      <div style={{display:'flex', alignItems:'center', justifyContent:'center'}}>
         <button className='switch' onClick={handleSwitch}>{isLogin ? 'Already have an account? Sign In': `Don't have an account? Sign Up`}</button>
+      </div>
     </div>
     </div>
   )

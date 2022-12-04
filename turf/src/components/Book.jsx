@@ -7,7 +7,7 @@ const Book = () => {
 
   const url = `http://localhost:4001/booking`
 
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem('userProfile')))
+  const user = JSON.parse(localStorage.getItem('userProfile'))
   const [bookingData, setBookingData] = useState({ name:'', email:'', number:'', address:'', sport:'', players:'', date:'', time:''})
   const [price, setPrice] = useState("1700")
   const history = useHistory()
@@ -20,29 +20,31 @@ const Book = () => {
   currTime = `${hh} : ${min} : ${sec}`
 
   const handlePrice = (e)=>{ 
-    setPrice(e.target.value);
-    setBookingData({...bookingData, price})
+    setPrice(e.target.value)
   }
   
   const handleChange =(e)=>{
-    setBookingData({ ...bookingData, price, [e.target.name]: e.target.value})
+    setBookingData({ ...bookingData, [e.target.name]: e.target.value})
+  }
+
+  const handleClear = ()=>{
+    console.log('clear')
+    setBookingData({ name:'', email:'', number:'', address:'', sport:'', players:'', date:'', time:''})
   }
 
   const handleSubmit = async(e) =>{
     e.preventDefault()
     
-    const postData = await axios.post(url, bookingData)
     try {
-
-      alert('You are booked')
-      setBookingData({ })
+      const postData = await axios.post(url, bookingData)
 
     } catch (error) {
-      console.log(error)
+      alert(error.response.data.name)
     }
 
   }
 
+console.log(price)
 
   return (
     <div style={{display:'flex', alignItems:'center', justifyContent:'center', margin:'40px 0'}}>
@@ -50,13 +52,13 @@ const Book = () => {
         {user ? (
           <article style={{border:'none',display:'flex', flexDirection:'column', padding:'30px',    borderRadius:'34px', boxShadow:'3px 5px 15px gray'}}>
           
-          <input type="text" name='name' placeholder=' Name' onChange={handleChange} required/><br />
+          <input type="text" value={bookingData.name} name='name' placeholder=' Name' onChange={handleChange} required/><br />
 
-          <input type="email" name='email' placeholder=' @gmail.com' onChange={handleChange} required/><br />
+          <input type="email" value={bookingData.email} name='email' placeholder=' @gmail.com' onChange={handleChange} required/><br />
 
-          <input type="tel" placeholder=' +91' max='10' name='number' onChange={handleChange} required/><br />
+          <input type="tel" value={bookingData.number} placeholder=' +91' max='10' name='number' onChange={handleChange} required/><br />
 
-          <input type="text" name='address' placeholder=' Address' onChange={handleChange}/><br />
+          <input type="text" value={bookingData.address} name='address' placeholder=' Address' onChange={handleChange}/><br />
 
           <label>Select a Sport: </label>
           <span>
@@ -67,16 +69,16 @@ const Book = () => {
           </span><br />
 
           <label>Number of players: </label><br />
-          <input type="number" name='players' onChange={handleChange} min='7' max='15'/><br />
+          <input type="number" value={bookingData.players} name='players' onChange={handleChange} min='7' max='15'/><br />
 
           <label>Select Date: 
             <span style={{color:'red'}}> ( Please select a date after {new Date().toLocaleDateString()})</span>
           </label><br />
-          <input type="date" name='date' onChange={handleChange} min='2022-09-24' required/><br/>
+          <input type="date" value={bookingData.date} name='date' onChange={handleChange} min='2022-09-24'/><br/>
           
 
           <label>Time: <span style={{color:'red'}}>( Please select time after {currTime})</span></label><br />
-          <input type="time" name='time' onChange={handleChange} required/><br />
+          <input type="time" value={bookingData.time} name='time' onChange={handleChange} /><br />
           <br />
 
           <label>Book for: </label>&nbsp;
@@ -89,7 +91,7 @@ const Book = () => {
 
           <div>Booking price - <span style={{fontSize:'21px', color:'gary'}}>{price && price} ₹</span></div>
           <br /> <br /> &nbsp;
-          <button type='submit'>Book</button>
+          <button type='submit'>Book</button>&nbsp;
           </article>
 
           
@@ -98,6 +100,7 @@ const Book = () => {
         <span style={{color:'red', fontSize:'25px'}}> Please Sign Up or login to book your <br/> Reservation</span>
         </div>)}
       </form>
+<button onClick={handleClear}>Clear</button>
     </div>
   )
 }
