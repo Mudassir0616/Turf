@@ -156,5 +156,30 @@ tr:nth-child(even) {
 .reviews:hover{
   transform: scale(1.1);
 }
+.queries{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin: 3rem 0 4rem;
+  
+}
+.accordian{
+  width: 500px;
+}
+.faq-que{
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: rgb(40, 40, 161);
+  
+}
+.faq-ans{
+  font-size: 1rem;
+  font-weight: 400;
+  color: gray;
+}
 
+.contact-form{
+  display: flex;
+}
 

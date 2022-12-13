@@ -1,5 +1,4 @@
 import axios from 'axios'
-import moment from 'moment'
 import React,{useState} from 'react'
 import { useHistory } from 'react-router-dom'
 
@@ -92,6 +91,7 @@ console.log(price)
           <div>Booking price - <span style={{fontSize:'21px', color:'gary'}}>{price && price} ₹</span></div>
           <br /> <br /> &nbsp;
           <button type='submit'>Book</button>&nbsp;
+           <button onClick={handleClear}>Clear</button>
           </article>
 
           
@@ -100,7 +100,6 @@ console.log(price)
         <span style={{color:'red', fontSize:'25px'}}> Please Sign Up or login to book your <br/> Reservation</span>
         </div>)}
       </form>
-<button onClick={handleClear}>Clear</button>
     </div>
   )
 }
