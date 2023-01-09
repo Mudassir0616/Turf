@@ -18,7 +18,7 @@ router.post('/', async(req,res) =>{
     
     const post = req.body
 
-    const newPost = new Bookings({...post, message: 'Reserved'})
+    const newPost = new Bookings({...post})
     try {
         await newPost.save()
 

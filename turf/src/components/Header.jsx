@@ -1,8 +1,8 @@
 import React,{useEffect, useState} from 'react'
 import { Link, useHistory, useLocation } from 'react-router-dom'
-import { Avatar } from '@mui/material'
+import { Avatar, Button } from '@mui/material'
 import decode from 'jwt-decode'
-import Logo from '../images/images.png'
+import Logo from '../images/logo.png'
 
 const Header = () => {
   const location = useLocation()
@@ -33,9 +33,8 @@ const Header = () => {
 
   return (
     <nav className='header'>
-      <div>
-        <img src={Logo} width='200px'/>
-      </div>
+      <div style={{display:'flex', alignItems:'center', justifyContent:'space-around'}}>
+        <img src={Logo} width='150px' height='150px'/>
 
       <div className='links'>
         <ul>
@@ -60,24 +59,26 @@ const Header = () => {
             <li><p>Contact Us</p></li>
           </Link>
         </ul>
+       </div>
       </div>
       <div style={{display:'flex', flexWrap:'wrap',paddingRight:'20px'}}>
         {user && (
           <div style={{display:'flex',flexWrap:'wrap'}}>
-            <span style={{display:'flex', alignItems:'center', justifyContent:'center', textTransform:'capitalize', fontSize:'17px', fontWeight:'500'}}><Avatar></Avatar> &nbsp;&nbsp;
+            <span style={{display:'flex', alignItems:'center', justifyContent:'center', textTransform:'capitalize', fontSize:'17px', fontWeight:'500', cursor:'pointer'}}>
+              <Avatar></Avatar> &nbsp;&nbsp;
             {user?.name}</span>&nbsp;&nbsp;
           </div>
         )}
         {user ? (
-          <button onClick={logout} style={{backgroundColor:'#348C31', color:'white', border:'none', padding:'0 15px', borderRadius:'6px', fontSize:'17px'}}>Logout</button>
+          <Button onClick={logout} variant='contained' color='error'>Logout</Button>
         ): (
           <>
-          <Link to={'/registration'}>
-          <button className='sign-btn'>Register</button>
+          <Link to={'/registration'} style={{textDecoration:'none'}}>
+          <Button variant='contained' color='secondary'>Register</Button>
           </Link>
           &nbsp;&nbsp;&nbsp;
-          <Link to={'/admin'}>
-          <button className='sign-btn'>Admin</button>
+          <Link to={'/admin'} style={{textDecoration:'none'}}>
+          <Button variant='contained' color='primary' style={{textDecoration:'none'}}>Admin</Button>
           </Link>
           </>
         )}

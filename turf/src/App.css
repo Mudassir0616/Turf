@@ -7,7 +7,7 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
   border-bottom: 2px solid #dddddd;
 }
 .links ul{
@@ -34,7 +34,7 @@
   width: 100%;
   transform: scaleX(0);
   height: 2px;
-  bottom: 0;
+  bottom: -2px;
   left: 0;
   background-color: #348C31;
   transform-origin: bottom right;
@@ -59,13 +59,14 @@
 }
 .switch{
   background-color: none;
-  color: gray;
+  color: #207697;
+  cursor: pointer;
   border: none;
   font-size: 14px;
   transition: 0.1s;
 }
 .switch:hover{
-  color: #207697;
+  color: #c44a3a;
 }
 .form{
   display: flex;
@@ -157,29 +158,52 @@ tr:nth-child(even) {
   transform: scale(1.1);
 }
 .queries{
+  padding: 20px 0 20px 20px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  margin: 3rem 0 4rem;
-  
+  gap: 10px;
 }
 .accordian{
   width: 500px;
 }
 .faq-que{
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   font-weight: 500;
-  color: rgb(40, 40, 161);
+  color: darkgreen;
   
 }
 .faq-ans{
   font-size: 1rem;
-  font-weight: 400;
+  font-weight: 600;
   color: gray;
 }
 
 .contact-form{
   display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  margin: 0 7rem;
+  padding: 2rem 1rem;
+  border-radius: 12px;
+  gap: 16px;
+  /* box-shadow: 0 10px 20px rgba(0,0,0,0.19), 7px 1px 6px rgba(0,0,0,0.23); */
+  box-shadow: 2px 5px 5px gray;
+  
+}
+.contact-form button {
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  background-color: #4caf50;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.contact-form button:hover {
+  background-color: #3e8e41;
 }
 

@@ -52,7 +52,7 @@ const Reservation = () => {
                     <td style={{textAlign:'center'}}>{booking.players}</td>
                     <td>{moment(booking.date).format('MM/DD/YYYY')}</td>
                     <td>{booking.time}</td>
-                    <td>{booking.price}₹</td>
+                    <td>₹{booking.price}</td>
                     <td style={{textAlign:'center', cursor:'pointer'}} onClick={() => handleDelete(booking._id, index)}><DeleteIcon/></td>
                 </tr>
             ))}

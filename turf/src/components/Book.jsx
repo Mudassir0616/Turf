@@ -7,8 +7,8 @@ const Book = () => {
   const url = `http://localhost:4001/booking`
 
   const user = JSON.parse(localStorage.getItem('userProfile'))
-  const [bookingData, setBookingData] = useState({ name:'', email:'', number:'', address:'', sport:'', players:'', date:'', time:''})
-  const [price, setPrice] = useState("1700")
+  const [bookingData, setBookingData] = useState({ name:'', email:'', number:'', address:'', sport:'', players:'', date:'', time:'', price:'1700'})
+
   const history = useHistory()
   
   let currTime = new Date();
@@ -18,16 +18,11 @@ const Book = () => {
 
   currTime = `${hh} : ${min} : ${sec}`
 
-  const handlePrice = (e)=>{ 
-    setPrice(e.target.value)
-  }
-  
   const handleChange =(e)=>{
     setBookingData({ ...bookingData, [e.target.name]: e.target.value})
   }
 
   const handleClear = ()=>{
-    console.log('clear')
     setBookingData({ name:'', email:'', number:'', address:'', sport:'', players:'', date:'', time:''})
   }
 
@@ -36,14 +31,14 @@ const Book = () => {
     
     try {
       const postData = await axios.post(url, bookingData)
+      console.log(postData)
+      alert('Succesfully Booked')
+      setBookingData({ name:'', email:'', number:'', address:'', sport:'', players:'', date:'', time:''})
 
     } catch (error) {
-      alert(error.response.data.name)
+      console.log(error)
     }
-
   }
-
-console.log(price)
 
   return (
     <div style={{display:'flex', alignItems:'center', justifyContent:'center', margin:'40px 0'}}>
@@ -51,11 +46,11 @@ console.log(price)
         {user ? (
           <article style={{border:'none',display:'flex', flexDirection:'column', padding:'30px',    borderRadius:'34px', boxShadow:'3px 5px 15px gray'}}>
           
-          <input type="text" value={bookingData.name} name='name' placeholder=' Name' onChange={handleChange} required/><br />
+          <input type="text" value={bookingData.name} name='name' placeholder=' Name' onChange={handleChange} /><br />
 
-          <input type="email" value={bookingData.email} name='email' placeholder=' @gmail.com' onChange={handleChange} required/><br />
+          <input type="email" value={bookingData.email} name='email' placeholder=' @gmail.com' onChange={handleChange} /><br />
 
-          <input type="tel" value={bookingData.number} placeholder=' +91' max='10' name='number' onChange={handleChange} required/><br />
+          <input type="tel" value={bookingData.number} placeholder=' +91' max='10' name='number' onChange={handleChange} /><br />
 
           <input type="text" value={bookingData.address} name='address' placeholder=' Address' onChange={handleChange}/><br />
 
@@ -73,7 +68,7 @@ console.log(price)
           <label>Select Date: 
             <span style={{color:'red'}}> ( Please select a date after {new Date().toLocaleDateString()})</span>
           </label><br />
-          <input type="date" value={bookingData.date} name='date' onChange={handleChange} min='2022-09-24'/><br/>
+          <input type="date" value={bookingData.date} name='date' onChange={handleChange} min='2023-01-07'/><br/>
           
 
           <label>Time: <span style={{color:'red'}}>( Please select time after {currTime})</span></label><br />
@@ -81,14 +76,14 @@ console.log(price)
           <br />
 
           <label>Book for: </label>&nbsp;
-          <select name='price' onChange={handlePrice} required>
+          <select name='price' value={bookingData.price} onChange={handleChange}>
           <option value="1700" >1h</option>
           <option value="2400" >2h</option> 
           <option value="3100">3h</option> 
           <option value="3800">4h</option>   
           </select><br /><br />
 
-          <div>Booking price - <span style={{fontSize:'21px', color:'gary'}}>{price && price} ₹</span></div>
+          <div>Booking price - <span style={{fontSize:'21px', color:'gary'}}>{bookingData.price && bookingData.price} ₹</span></div>
           <br /> <br /> &nbsp;
           <button type='submit'>Book</button>&nbsp;
            <button onClick={handleClear}>Clear</button>

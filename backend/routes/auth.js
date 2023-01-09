@@ -53,14 +53,14 @@ router.post('/signUp', async(req,res)=>{
 
         const result = await Users.create({ email, password: hashedPassword, name, number})
 
-        const token = jwt.sign({ email: result.email, id: result._id}, 'turf', {expiresIn:'1min'});
+        const token = jwt.sign({ email: result.email, id: result._id}, 'turf', {expiresIn:'30min'});
 
-        await  transporter.sendMail({
-            to: result.email,
-            from:'mudassirshaikh6432@gmail.com',
-            subject:'Signed Up successfully',
-            html: `<h1>Welcome ${result.name}</h1>`
-        })
+        // await  transporter.sendMail({
+        //     to: result.email,
+        //     from:'mudassirshaikh6432@gmail.com',
+        //     subject:'Signed Up successfully',
+        //     html: `<h1>Welcome ${result.name}</h1>`
+        // })
 
          res.status(200).json({admin: false, name: result.name, email: result.email, phone: result.number, token})
          
