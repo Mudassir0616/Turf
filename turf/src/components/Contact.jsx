@@ -12,7 +12,7 @@ const Contact = () => {
   const [contact, setContact] = useState(initialState)
 
   const handleContact = (e)=>{
-    setContact({...contact, [e.target.name]: e.target.value})
+    setContact(prev =>({...contact, [e.target.name]: e.target.value}))
   }
 
   const handleSubmit = async(e)=>{
@@ -103,12 +103,12 @@ const Contact = () => {
     <div style={{flex:1, padding:'10px 0',}}>
       <form onSubmit={handleSubmit} className='contact-form'>
         <div style={{display:'flex', gap:'5px'}}>
-        <TextField value={contact.firstName} name='firstName' label='First Name' onChange={handleContact} required/>
-        <TextField value={contact.lastName} name='lastName' label='Last Name' onChange={handleContact} />
+        <TextField variant='standard' value={contact.firstName} name='firstName' label='First Name' onChange={handleContact} required/>
+        <TextField variant='standard' value={contact.lastName} name='lastName' label='Last Name' onChange={handleContact} />
         </div>
-        <TextField value={contact.email} name='email' label='E-mail' onChange={handleContact} fullWidth required/>
-        <TextField value={contact.number} name='number' label='+91' onChange={handleContact} fullWidth/>
-        <TextField value={contact.query} name='query' label='Query ?' onChange={handleContact} multiline rows={5} fullWidth required/>
+        <TextField variant='standard' value={contact.email} name='email' label='E-mail' onChange={handleContact} fullWidth required/>
+        <TextField variant='standard' value={contact.number} name='number' label='+91' onChange={handleContact} fullWidth/>
+        <TextField variant='standard' value={contact.query} name='query' label='Query ?' onChange={handleContact} multiline rows={5} fullWidth required/>
         <Button type='submit' variant='contained' fullWidth>Submit</Button>
       </form>
     </div>

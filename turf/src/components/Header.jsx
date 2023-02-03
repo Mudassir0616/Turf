@@ -1,14 +1,13 @@
 import React,{useEffect, useState} from 'react'
 import { Link, useHistory, useLocation } from 'react-router-dom'
 import { Avatar, Button } from '@mui/material'
-import decode from 'jwt-decode'
 import Logo from '../images/logo.png'
 
 const Header = () => {
   const location = useLocation()
   const history = useHistory()
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('userProfile')))
-  console.log(user)
+  // console.log(user)
   
   const logout = ()=>{
     localStorage.clear()
@@ -19,7 +18,7 @@ const Header = () => {
 
   useEffect(()=>{
 
-    const token = user?.token
+    // const token = user?.token
 
     // if(token){
     //   const decodedToken = decode(token)
@@ -34,7 +33,7 @@ const Header = () => {
   return (
     <nav className='header'>
       <div style={{display:'flex', alignItems:'center', justifyContent:'space-around'}}>
-        <img src={Logo} width='150px' height='150px'/>
+        <img src={Logo} alt={Logo} width='150px' height='150px'/>
 
       <div className='links'>
         <ul>
@@ -64,9 +63,13 @@ const Header = () => {
       <div style={{display:'flex', flexWrap:'wrap',paddingRight:'20px'}}>
         {user && (
           <div style={{display:'flex',flexWrap:'wrap'}}>
-            <span style={{display:'flex', alignItems:'center', justifyContent:'center', textTransform:'capitalize', fontSize:'17px', fontWeight:'500', cursor:'pointer'}}>
-              <Avatar></Avatar> &nbsp;&nbsp;
-            {user?.name}</span>&nbsp;&nbsp;
+            <span style={{display:'flex', alignItems:'center', justifyContent:'center', textTransform:'capitalize', fontSize:'17px', fontWeight:'500', cursor:'pointer', gap:'10px', marginRight:'15px'}}>
+              <Link to={`/dashboard`} style={{textDecoration:'none'}}> 
+              <Avatar>{user?.name[0]}</Avatar>
+              </Link>
+
+            {user?.name}
+            </span>
           </div>
         )}
         {user ? (

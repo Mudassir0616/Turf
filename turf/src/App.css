@@ -94,6 +94,7 @@
 .table{
   text-align: center;
   margin: 50px 0; 
+  padding: 0 1rem;
   display: flex;
   flex-wrap: wrap;
   overflow-y: hidden;
@@ -110,6 +111,18 @@
 tr:nth-child(even) {
   background-color: #348C31;
   color: white;
+}
+
+.export-btn{
+  transition: 0.3s;
+  border: none;
+  background-color: #dddddd;
+}
+.export-btn:hover{
+  box-shadow: 1px 5px 5px gray;
+  background-color: #3e8e41;
+  color: white;
+  border: none;
 }
 
 /* -------------------- reviews -------------------*/
@@ -205,5 +218,20 @@ tr:nth-child(even) {
 
 .contact-form button:hover {
   background-color: #3e8e41;
+}
+
+/*----- DASHBOARD ----*/
+
+.dashboard-form input{
+  color: gray;
+}
+.dashboard-form p{
+  color: gray;
+  font-weight: 500;
+  line-height: 20px;
+}
+.filebase{
+  color:'red';
+  width:'100px';
 }
 

@@ -25,12 +25,24 @@ router.post('/signIn', async(req,res)=>{
 
         const token = jwt.sign({email: signedUser.email, id: signedUser._id}, 'turf', {expiresIn:'3min'})
 
-        res.status(200).json({admin:true, name: signedUser.name, token})
+        res.status(200).json({admin:true, id: signedUser._id, email: signedUser.email, phone: signedUser.phone, name: signedUser.name, userImg: signedUser.userImg, token})
 
         
     } catch (error) {
 
         res.status(500).json(error)
+    }
+})
+
+router.patch('/:id', async(req,res)=>{
+    const id  = req.params.id;
+    const body = req.body
+
+    const update = await Admin.findByIdAndUpdate(id, body, {new: true})
+    try { 
+        res.send(update)
+    } catch (error) {
+        console.log(error)
     }
 })
     

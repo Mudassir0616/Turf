@@ -12,7 +12,7 @@ const Regsiter = () => {
   const url = 'http://localhost:4001/users'
 
   const [formData, setformData] = useState(initialState)
-  const [isLogin, setisLogin] = useState(true)
+  const [isLogin, setisLogin] = useState(false)
   const history = useHistory()
 
   const handleSwitch = ()=>{

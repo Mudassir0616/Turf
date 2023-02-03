@@ -25,7 +25,7 @@ router.post('/signIn', async(req,res)=>{
 
         const token = jwt.sign({email: signedUser.email, id: signedUser._id}, 'turf', {expiresIn:'3min'})
 
-        res.status(200).json({admin: false, name: signedUser.name, token})
+        res.status(200).json({admin: false, name: signedUser.name, email: signedUser.email, id: signedUser._id, phone: signedUser.number, token})
 
         
     } catch (error) {
@@ -62,7 +62,7 @@ router.post('/signUp', async(req,res)=>{
         //     html: `<h1>Welcome ${result.name}</h1>`
         // })
 
-         res.status(200).json({admin: false, name: result.name, email: result.email, phone: result.number, token})
+         res.status(200).json({id: result._id, admin: false, name: result.name, email: result.email, phone: result.number, token})
          
         } catch (error) {
             res.status(500).json(error)

@@ -10,8 +10,10 @@ import Contact from './components/Contact';
 import ResetPass from './components/ResetPass';
 import Admin from './components/Admin';
 import Testimonials from './components/Testimonials';
+import Dashboard from './components/Dashboard';
 
 function App() {
+  
   return (
     <div className="App">
       <Header/>
@@ -26,6 +28,7 @@ function App() {
         <Route path={'/admin'} exact component={Admin}/>
         <Route path={'/contact-us'} exact component={Contact}/>
         <Route path={'/reset'} exact component={ResetPass}/>
+        <Route path={`/dashboard`} exact component={Dashboard}/>
       </Switch>
 
     </div>

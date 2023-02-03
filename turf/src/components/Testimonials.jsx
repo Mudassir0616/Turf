@@ -94,11 +94,11 @@ const Testimonials = () => {
         </div>
         {name && (
         <div style={{margin:'60px'}}>
-        <form onSubmit={handleSubmit} style={{display:'flex', flexDirection:'column', alignItems:'center', width:'500px'}}>
+        <form onSubmit={handleSubmit} style={{display:'flex', flexDirection:'column', alignItems:'center', width:'700px'}}>
             {/* <input type="text" name="testimonial" onChange={handleChange} placeholder=' Message'/><br /><br /> */}
             <TextField
               label='Add your Testimonial...' 
-              variant='outlined' 
+              variant='filled' 
               fullWidth 
               multiline
               rows={4}

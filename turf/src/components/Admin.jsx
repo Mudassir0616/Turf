@@ -1,11 +1,11 @@
 import axios from 'axios'
 import React,{useState} from 'react'
-import { Link, useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import KeyIcon from '@mui/icons-material/Key';
 import { Avatar, Button, TextField } from '@mui/material'
 
 
-const initialState = { name:'', email:'', password:'', cPassword:''}
+const initialState = {id:'', name:'', email:'', password:'', cPassword:''}
 
 const Admin = () => {
 
@@ -43,14 +43,14 @@ const Admin = () => {
         <Avatar className='avatar'>
           <KeyIcon/>
         </Avatar>
-        <span className='sign' style={{paddingTop:'10px'}}>Admin</span>
+        <span className='sign' style={{paddingTop:'10px'}}>Admin Panel  </span>
         
-        <div style={{display:'flex', alignItems:'center', justifyContent:'center', flexDirection:'column', gap:'10px', padding:'1rem 0'}} className='mui'>
-        <TextField type="text" name="email" label='@gmail.com' onChange={handleChange}/>
-        <TextField type="password" name="password" label='password*' onChange={handleChange}/>
+        <div style={{display:'flex', alignItems:'center', justifyContent:'center', flexDirection:'column', gap:'10px', padding:'1.5rem 0'}} className='mui'>
+        <TextField type="text" name="email" variant='standard' label='@gmail.com' onChange={handleChange}/>
+        <TextField type="password" name="password" variant='standard' label='password*' onChange={handleChange}/>
         </div>
         <div style={{borderRadius:'6px', width:'99%', margin:'10px 0'}}>
-        <Button type='submit' variant='contained' color='error' fullWidth>Login</Button>
+        <Button type='submit' variant='contained' color='primary' fullWidth>Login</Button>
         </div>
         
       </form>

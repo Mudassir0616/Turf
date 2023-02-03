@@ -1,4 +1,5 @@
 import express from 'express'
+import bodyParser from 'body-parser'
 import mongoose from 'mongoose'
 import cors from 'cors'
 import adminRoutes from './routes/admin.js'
@@ -6,16 +7,21 @@ import userRoutes from './routes/auth.js'
 import bookRoutes from './routes/booking.js'
 import contactRoutes from './routes/contact.js'
 import reviewRoutes from './routes/review.js'
+import profileRoutes from './routes/profiles.js'
 const app = express()
 
-app.use(express.json())
 app.use(cors())
+
+app.use(bodyParser.json({ limit:'50mb', extended: true}));
+app.use(bodyParser.urlencoded({ limit:'50mb', extended: true}));
+app.use(express.json())
 
 app.use('/users', userRoutes)
 app.use('/admin', adminRoutes)
 app.use('/booking', bookRoutes)
 app.use('/contact', contactRoutes)
 app.use('/reviews', reviewRoutes)
+app.use('/profile', profileRoutes)
 
 const PORT = process.env.PORT || 4001
 
