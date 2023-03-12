@@ -3,6 +3,8 @@ import React,{useState} from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import KeyIcon from '@mui/icons-material/Key';
 import { Avatar, Button, TextField } from '@mui/material'
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const initialState = { name:'', email:'',number:'', password:'', cPassword:''}
@@ -28,15 +30,19 @@ const Regsiter = () => {
       const {data} = await axios.post(`${url}/signUp`,formData)
       localStorage.setItem('userProfile', JSON.stringify(data))
       history.push('/')
+      toast('Successfully SignedUp')
 
       } else{
         const {data}= await axios.post(`${url}/signIn`,formData)
         localStorage.setItem('userProfile', JSON.stringify(data))
-        console.log(data)
         history.push('/')
+        toast('Successfully SignedIn')
       }
      } catch (error) {
-      alert(error?.response?.data?.message)
+      toast(error?.response?.data?.message, {
+        type:'error',
+        position:'bottom-right'
+      })
      }
 
     
@@ -49,6 +55,7 @@ const Regsiter = () => {
   }
   return (
     <div style={{display:'flex',alignItems:'center',justifyContent:'center', margin:'40px 0' }}>
+      <ToastContainer/>
     <div style={{border:'none', padding:'20px 30px', borderRadius:'34px', boxShadow:'3px 5px 15px gray'}}>
       <form onSubmit={handleSubmit} className='form'>
 

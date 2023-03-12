@@ -1,14 +1,25 @@
+
 .App {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  z-index: 0;
+  
+}
+.background{
+  background-image: url('./images/grass.webp');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 .header{
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-around;
-  border-bottom: 2px solid #dddddd;
+  box-shadow: 0px 4px 16px -5px rgb(0 0 0 / 49%);
+  
+  
 }
 .links ul{
   display: flex;
@@ -23,10 +34,12 @@
   position: relative;
 }
 .links p{
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: cursive;
   font-size: 17px;
-  font-weight: 500;
-  color: gray;
+  font-weight: 600;
+  color: rgb(11, 143, 11);
+  padding: 0 5px;
+  border-radius: 4px;
 }
 .links p:after{
   content: '';
@@ -36,7 +49,8 @@
   height: 2px;
   bottom: -2px;
   left: 0;
-  background-color: #348C31;
+  background-color: darkgreen;
+  color: rgb(9, 9, 54);
   transform-origin: bottom right;
   transition: transform 0.3s ease-out;
 }
@@ -46,16 +60,18 @@
 }
 .sign-btn{
   padding: 10px 15px;
-  background-color: #dddddd;
-  color: gray;
+  background-color: darkgreen;
   border: none;
   border-radius: 6px;
   transition: 0.3s;
+  font-weight: 600;
+  color: white;
+  cursor: pointer;
 }
 .sign-btn:hover{
   transform: scale(1.1);
-  color: white;
-  background-color: #348C31;
+  background-color: #f7f3f3;
+  color: darkgreen;
 }
 .switch{
   background-color: none;
@@ -81,7 +97,7 @@
 .form input{
   width: 270px;
 }
-/* .submit{
+.submit{
   background-color:#348C31;
   color: white;
   border: none;
@@ -90,7 +106,7 @@
   border-radius: 10px;
   font-size: 19px;
   
-} */
+}
 .table{
   text-align: center;
   margin: 50px 0; 
@@ -111,6 +127,28 @@
 tr:nth-child(even) {
   background-color: #348C31;
   color: white;
+}
+
+.main-frame{
+  width: 100%;
+  height: 560px;
+  background-image: url('./images/cricket.jpg');
+  animation: slider 10s infinite linear;
+  object-fit: cover;
+  background-size: 100% 100%;
+  opacity: 0.9;
+  position: relative;
+}
+
+@keyframes slider{
+  0%{ background-image: url('./images/football.webp');}
+  45%{ background-image: url('./images/ball.jfif');}
+  80%{ background-image: url('./images/players.jfif');}
+}
+
+.banner-fade{
+  height: 3rem;
+  background-image: linear-gradient(180deg, transparent, rgba(37, 37, 37, 0.61), white);
 }
 
 .export-btn{
@@ -139,17 +177,12 @@ tr:nth-child(even) {
   font-family: "Roboto", Sans-serif;
   font-size: 3.5rem;
   color: #348C31;
-  transition: 0.3s;
-}
-.h1:hover{
-  color: gray;
-  opacity: 0.7;
 }
 
 .hidden{
   content: '';
   width: 300px;
-  height: 3px;
+  height: 2px;
   background-color: gray;
   border-radius: 99px;
   opacity: 0.7;
@@ -233,5 +266,12 @@ tr:nth-child(even) {
 .filebase{
   color:'red';
   width:'100px';
+}
+
+.divider{
+  content: "";
+  border-right: 1px solid darkgray;
+  height: 140px;
+  padding: 10px 30px;
 }
 

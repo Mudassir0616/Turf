@@ -81,8 +81,8 @@ const Dashboard = () => {
     console.log(userBooking)
 
   return (
-    <div style={{backgroundColor:'rgb(228, 225, 225)', padding:'30px 50px'}}>
-        <div style={{ backgroundColor:'white', padding:'1rem 3rem 2rem'}}>
+    <div style={{backgroundColor:'whitesmoke', padding:'30px 50px'}} className="background">
+        <div style={{ backgroundColor:'whitesmoke', padding:'1rem 3rem 2rem'}}>
             <h2>MY <span style={{color:'#3e8e41'}}> DASHBOARD </span></h2>
 
             <div style={{display:'flex', gap:'20px', alignItems:'flex-end'}}>

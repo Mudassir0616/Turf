@@ -5,7 +5,7 @@ const reviewSchema = mongoose.Schema({
     testimonial: String,
     date: {
         type: Date,
-        default: new Date()
+        default: Date.now()
     }
 })
 

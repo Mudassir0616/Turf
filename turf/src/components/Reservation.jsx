@@ -8,6 +8,8 @@ import 'jspdf-autotable'
 import PrintIcon from '@mui/icons-material/Print';
 import * as XLSX from 'xlsx'
 import { TextField } from '@mui/material';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Reservation = () => {
     const url = 'http://localhost:4001/booking'
@@ -53,6 +55,10 @@ const Reservation = () => {
           body: filteredData
         })
         doc.save('table.pdf')
+        toast('PDF downloaded', {
+            type:'success',
+            position:'bottom-right'
+        })
     }
 
     const downloadExcel=()=>{
@@ -69,7 +75,11 @@ const Reservation = () => {
         XLSX.write(workBook,{bookType:"xlsx",type:"binary"})
         //Download
         XLSX.writeFile(workBook,"PlayersData.xlsx")
-  
+
+        toast('Excel sheet downloaded', {
+            type:'success',
+            position:'bottom-right'
+        })
     }
     
     const handleSearchChange = (e) => {
@@ -84,9 +94,18 @@ const Reservation = () => {
 
     // console.log("page data", data);
     // console.log("user", user && user[0].admin);
+    // const dateString = "1970-01-19T06:35:16.234Z";
+    const convertToUTC = (api_date)=>{
+        const date = moment.utc(api_date).utcOffset("+05:30");
+
+const formattedDate = date.format("DD/MM/YYYY hh:mm:ss A");
+
+    return formattedDate
+    }
 
   return (
     <div className='table'>
+        <ToastContainer/>
         {user && user[0].admin ? (
         <>
         <div style={{display:'flex', alignItems:'center', margin:'10px', gap:'7px', width:'80vw'}}>
@@ -125,7 +144,7 @@ const Reservation = () => {
                     <td>{booking.address}</td>
                     <td>{booking.sport}</td>
                     <td style={{textAlign:'center'}}>{booking.players}</td>
-                    <td>{moment(booking.date).format('MM/DD/YYYY')}</td>
+                    <td style={{width:'90px', textAlign:'center'}}>{convertToUTC(booking.date)}</td>
                     <td>{booking.time}</td>
                     <td>₹{booking.price}</td>
                     <td style={{textAlign:'center', cursor:'pointer'}} onClick={() => handleDelete(booking._id, index)}><DeleteIcon/></td>

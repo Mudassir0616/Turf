@@ -1,7 +1,7 @@
 import React,{useEffect, useState} from 'react'
 import { Link, useHistory, useLocation } from 'react-router-dom'
 import { Avatar, Button } from '@mui/material'
-import Logo from '../images/logo.png'
+import Logo from '../images/playspots.png'
 
 const Header = () => {
   const location = useLocation()
@@ -33,7 +33,7 @@ const Header = () => {
   return (
     <nav className='header'>
       <div style={{display:'flex', alignItems:'center', justifyContent:'space-around'}}>
-        <img src={Logo} alt={Logo} width='150px' height='150px'/>
+        <img src={Logo} alt={Logo} width='150px'/>
 
       <div className='links'>
         <ul>
