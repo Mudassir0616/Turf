@@ -30,13 +30,13 @@ const Regsiter = () => {
       const {data} = await axios.post(`${url}/signUp`,formData)
       localStorage.setItem('userProfile', JSON.stringify(data))
       history.push('/')
-      toast('Successfully SignedUp')
+      toast('Successfully Signed Up')
 
       } else{
         const {data}= await axios.post(`${url}/signIn`,formData)
         localStorage.setItem('userProfile', JSON.stringify(data))
         history.push('/')
-        toast('Successfully SignedIn')
+        toast('Successfully Signed In')
       }
      } catch (error) {
       toast(error?.response?.data?.message, {
@@ -72,7 +72,11 @@ const Regsiter = () => {
           </>
         )}<br/>
         <TextField label='@gmail.com' name='email' onChange={handleChange} required fullWidth/>&nbsp;
-        {isLogin && <TextField label='+ 91' name='number' onChange={handleChange} fullWidth/>}<br />
+        {isLogin && <TextField label='+ 91' name='number' InputProps={{
+          inputProps: {
+          maxLength: 10,
+          },
+        }} onChange={handleChange} fullWidth/>}<br />
         <TextField label='Password' type='password' name='password' onChange={handleChange} required fullWidth/><br />
         {!isLogin && <Link to={'/reset'} style={{textDecoration:'none'}}><span style={{color:'#347C98'}}> Forgot Password ? </span></Link>}
         {isLogin && (

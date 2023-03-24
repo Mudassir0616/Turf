@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 import map from '../images/mumbai.jpg'
 import search from '../images/search.png'
@@ -6,7 +6,6 @@ import book from '../images/book.png'
 import play from '../images/play.png'
 import discount from '../images/discount.jpeg'
 import pals from '../images/meet-pals.png'
-import Footer from './Footer'
 
 const Home = () => {
   

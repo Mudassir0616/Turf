@@ -17,24 +17,6 @@ import SiteMap from './components/SiteMap';
 import Footer from './components/Footer';
 
 function App() {
-
-  const dateString = "1970-01-19T06:35:16.234Z";
-const date = new Date(dateString);
-
-const options = {
-  day: "2-digit",
-  month: "2-digit",
-  year: "numeric",
-  hour: "numeric",
-  minute: "2-digit",
-  second: "2-digit",
-  hour12: true,
-};
-
-const convertedDateTime = date.toLocaleString("en-US", options);
-
-console.log(convertedDateTime);
-  
   return (
     <div className="App">
       <Header/>

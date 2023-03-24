@@ -90,18 +90,8 @@ const Reservation = () => {
           )
         ));
       }
-    
 
-    // console.log("page data", data);
-    // console.log("user", user && user[0].admin);
-    // const dateString = "1970-01-19T06:35:16.234Z";
-    const convertToUTC = (api_date)=>{
-        const date = moment.utc(api_date).utcOffset("+05:30");
-
-const formattedDate = date.format("DD/MM/YYYY hh:mm:ss A");
-
-    return formattedDate
-    }
+      console.log(data)
 
   return (
     <div className='table'>
@@ -122,7 +112,6 @@ const formattedDate = date.format("DD/MM/YYYY hh:mm:ss A");
          className='export-btn'>
             Export to CSV
         </button>
-
         <TextField type='search' label='Search' onChange={handleSearchChange} fullWidth style={{margin:'0 1rem'}}/>
         </div>
         <table style={{ borderCollapse:'collapse', width:'100%'}}>
@@ -131,7 +120,7 @@ const formattedDate = date.format("DD/MM/YYYY hh:mm:ss A");
                 <th>Email</th>
                 <th>Address</th>
                 <th>Sport</th>
-                <th>Players</th>
+                <th>Phone</th>
                 <th style={{textAlign:'center'}}>Date</th>
                 <th>Timing</th>
                 <th>Price</th>
@@ -143,8 +132,8 @@ const formattedDate = date.format("DD/MM/YYYY hh:mm:ss A");
                     <td>{booking.email}</td>
                     <td>{booking.address}</td>
                     <td>{booking.sport}</td>
-                    <td style={{textAlign:'center'}}>{booking.players}</td>
-                    <td style={{width:'90px', textAlign:'center'}}>{convertToUTC(booking.date)}</td>
+                    <td style={{textAlign:'center'}}>{booking.number.toString().substring(0, 10)}</td>
+                    <td style={{width:'90px', textAlign:'center'}}>{moment(booking.date).format('DD MMM')}</td>
                     <td>{booking.time}</td>
                     <td>₹{booking.price}</td>
                     <td style={{textAlign:'center', cursor:'pointer'}} onClick={() => handleDelete(booking._id, index)}><DeleteIcon/></td>

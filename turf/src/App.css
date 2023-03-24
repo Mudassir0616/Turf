@@ -170,7 +170,7 @@ tr:nth-child(even) {
   flex-wrap: wrap;
   justify-content: center;
   margin-bottom: 20px;
-  width: 100vw;
+  width: 95vw;
 }
 
 .h1{
@@ -273,5 +273,14 @@ tr:nth-child(even) {
   border-right: 1px solid darkgray;
   height: 140px;
   padding: 10px 30px;
+}
+
+/* booking */
+.type-btn{
+  transition: all 0.1s;
+}
+.type-btn:hover{
+  background-color: orange;
+  color: white;
 }
 

@@ -32,7 +32,7 @@ function ResumeGenerator() {
 
   return (
     <div>
-      <button onClick={downloadPDF}>Generate Resume PDF</button>
+      <button onClick={generatePDF}>Generate Resume PDF</button>
       <div ref={resumeRef}>
         {/* Render your resume template component here */}
         <ResumeTemplate />

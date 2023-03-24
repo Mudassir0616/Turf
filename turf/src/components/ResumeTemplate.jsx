@@ -245,7 +245,7 @@ const ResumeTemplate = () => {
                   color: "#EEEEEE",
                 }}
               >
-                {userInfo?.additional_info?.new_preferred_location[0]}
+                {/* {userInfo?.additional_info?.new_preferred_location[0]} */}
               </p>
             </div>
           </div>
@@ -590,7 +590,7 @@ const ResumeTemplate = () => {
                       : moment(exp.end_date).format("MMM YYYY")}
                   </li>
 
-                  {exp.key_responsibilites.split("- ").map((keys) => (
+                  {exp?.key_responsibilites?.split("- ").map((keys) => (
                     <p style={{ display: "flex", gap: "7px" }} key={keys}>
                       <span>&bull;</span>
                       <span style={{ textAlign: "justify" }}>
