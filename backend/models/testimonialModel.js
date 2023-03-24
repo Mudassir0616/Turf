@@ -3,9 +3,9 @@ import mongoose from "mongoose";
 const reviewSchema = mongoose.Schema({
     name: String,
     testimonial: String,
+    userImg: String,
     date: {
         type: Date,
-        default: Date.now()
     }
 })
 

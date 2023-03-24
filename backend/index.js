@@ -8,6 +8,7 @@ import bookRoutes from './routes/booking.js'
 import contactRoutes from './routes/contact.js'
 import reviewRoutes from './routes/review.js'
 import profileRoutes from './routes/profiles.js'
+import corporateRoutes from './routes/corporate.js'
 const app = express()
 
 app.use(cors())
@@ -22,6 +23,7 @@ app.use('/booking', bookRoutes)
 app.use('/contact', contactRoutes)
 app.use('/reviews', reviewRoutes)
 app.use('/profile', profileRoutes)
+app.use('/corporate-booking', corporateRoutes)
 
 const PORT = process.env.PORT || 4001
 

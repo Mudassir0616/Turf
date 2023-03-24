@@ -4,14 +4,16 @@ import Review from '../models/testimonialModel.js'
 const router = express.Router()
 
 router.post('/', async(req,res)=>{
-    const { name, testimonial } = req.body
+    const { name, testimonial, userImg } = req.body
+    const currentTimeUTC = new Date();
+    // const currentTimeIST = new Date(currentTimeUTC.getTime() + (5.5 * 60 * 60 * 1000));
 
     try {
         const signedUser = await Review.findOne({ name })
 
         if(!signedUser){
             // res.status(400).send({ status: false, message: 'User already exist'})
-            const newReview = new Review({name, testimonial})
+            const newReview = new Review({name, testimonial, userImg, date: currentTimeUTC})
             await newReview.save()
             res.send(newReview)
         } else{

@@ -24,15 +24,19 @@ const bookSchema = mongoose.Schema({
         type: Number
     },
     date:{
-        type: Date,
-        default: new Date()   
+      type: Date,
+      required: true
     },
-    time:{
-        type: String,
-        default: new Date().getHours()
+    from:{
+      type: String,
+      required: true
+    },
+    to:{
+      type: String,
+      required: true
     },
     price:{
-        type: String
+      type: Number
     }
 })
 
