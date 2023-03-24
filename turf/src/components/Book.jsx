@@ -220,7 +220,7 @@ const Book = () => {
             <Link to={'/sitemap'} style={{textDecoration:'none'}}>
             <p style={{display:'flex', alignItems:'center', fontSize:'15px', fontFamily:'sans-serif', opacity:'0.8', fontWeight:'100'}}>Map View&nbsp;<MyLocationIcon style={{color:'gray', fontSize:'16px'}}/></p>
             </Link>
-          <a href="#book"><button>BOOK NOW</button></a>
+          <a href="#book"><button style={{padding:'10px 15px'}}>BOOK NOW</button></a>
           </div>
         </div>
         <div style={{display:'flex', gap:'1rem', margin:'0.5rem 0'}}>

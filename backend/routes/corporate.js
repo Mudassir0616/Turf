@@ -22,11 +22,11 @@ router.post('/', async(req,res) =>{
     const newPost = new Corporate({...post})
     try {
         
-        // const sameDate = await Corporate.findOne({date})
-        // console.log('sameDate',sameDate)
-        // const sameTime = await Corporate.find({from: from, to:to})
-        // if(sameDate && sameTime) 
-        // return res.status(404).json({ status: false, message: 'This slot has already been booked'})
+        const sameDate = await Corporate.findOne({date})
+        console.log('sameDate',sameDate)
+        const sameTime = await Corporate.find({from: from, to:to})
+        if(sameDate && sameTime) 
+        return res.status(404).json({ status: false, message: 'This slot has already been booked'})
 
         await newPost.save()
 
