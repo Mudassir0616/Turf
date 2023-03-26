@@ -12,9 +12,9 @@ const Dashboard = () => {
     const [first, setfirst] = useState([]);
     const [data, setData] = useState({id: user?.id, name: user?.name, email: user?.email, number: user?.phone, userImg:'', admin: user?.admin})
     const [myBooking, setMyBooking] = useState([])
-    // const [admin, setAdmin] = useState([])
-    // console.log(data)
-    // console.log('looocaalll',user)
+    const [isCorprateActive, setisCorprateActive] = useState(false)
+    const [isIndividualActive, setisIndividualActive] = useState(true)
+    const [corporateData, setCorporateData] = useState([])
 
     const onSubmit = async(e)=>{
     //    e.preventDefault()
@@ -47,9 +47,26 @@ const Dashboard = () => {
         setMyBooking(data)
     }
 
+    const getCorporate = async()=>{
+      const { data } = await axios.get('http://localhost:4001/corporate-booking')
+      setCorporateData(data)
+  }
+
+    const handleCorporate = ()=>{
+      setisCorprateActive(true);
+      setisIndividualActive(false)
+     
+  }
+  const handleIndividual = ()=>{
+      setisIndividualActive(true);
+      setisCorprateActive(false)
+      
+  }
+
     useEffect(()=>{
         getProfiles()
         getBooking()
+        getCorporate()
     },[])
 
     console.log(myBooking)
@@ -70,10 +87,17 @@ const Dashboard = () => {
         setMyBooking([...myBooking])
     }
     
+    const handleDeleteCorporate = async(id, index)=>{
+      await axios.delete(`http://localhost:4001/corporate-booking/${id}`)
+      corporateData.splice(index, 1)
+      setCorporateData([...corporateData])
+    }
+    
     const userImage = first.filter(image => image.email === user?.email);
     
     const userBooking = myBooking.filter(booking => booking.email === user?.email);
-    console.log(userBooking)
+    const userCorporateBooking = corporateData.filter(booking => booking.email === user?.email);
+    console.log('userrrr',userBooking)
     console.log('Chhhhannnngeeeddddd',data)
 
   return (
@@ -126,33 +150,75 @@ const Dashboard = () => {
               </div>
             ) : (
             <div style={{ gap:'20px', margin:'10px 0'}}>
-              <p style={{fontWeight:'500', fontSize:'1.2rem'}}>My Bookings </p>
-              <table style={{ borderCollapse:'collapse', width:'100%', textAlign:'left'}}>
-                <tr>
-                  <th>Name</th>
-                  <th>Email</th>          
-                  <th style={{textAlign:'center'}}>Sport</th>
-                  <th style={{textAlign:'center'}}>Players</th>
-                  <th style={{textAlign:'center'}}>Date</th>
-                  <th style={{textAlign:'center'}}>Timing</th>
-                  <th style={{textAlign:'center'}}>Price</th>
-                  <th style={{width:'10px'}}>Cancel</th>
-                </tr>
-                {userBooking?.map((booking, index)=>(
-                  <tr key={booking?._id}>
-                    <td style={{textTransform:'capitalize', paddingLeft:'10px'}}>{booking.name}</td>
-                    <td style={{paddingLeft:'8px'}}>{booking.email}</td>
-                    <td style={{textAlign:'center'}}>{booking.sport}</td>
-                    <td style={{textAlign:'center'}}>{booking.players}</td>
-                    <td style={{textAlign:'center'}}>{moment(booking.date).format('DD MMM')}</td>
-                    <td style={{textAlign:'center'}}>{booking.time}</td>
-                    <td style={{textAlign:'center'}}>₹{booking.price}</td>
-                    <td style={{padding:'10px 0px ', cursor:'pointer', textAlign:'center'}} onClick={() => handleDelete(booking._id, index)}><DeleteIcon/></td>
+              <div style={{display:'flex', margin:'2rem 0 1rem 1rem', gap:'2px'}}>
+                <button onClick={handleIndividual} style={{background: isIndividualActive ? 'orange': '', color: isIndividualActive ? 'white': '', padding:'10px', border:'none', borderRadius:'1px', fontSize:'17px', cursor:'poniter'}} className="type-btn">Individual</button>
+                <button onClick={handleCorporate} style={{background: isCorprateActive ? 'orange': '', color: isCorprateActive ? 'white': '', padding:'10px', border:'none', borderRadius:'1px', fontSize:'17px', cursor:'poniter'}} className="type-btn">Corporate</button>
+              </div>
+              {isIndividualActive && (
+                <table style={{ borderCollapse:'collapse', width:'100%'}}>
+                  <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th style={{width:'300px'}}>Address</th>
+                    <th style={{textAlign:'center'}}>Sport</th>
+                    <th style={{textAlign:'center'}}>Phone</th>
+                    <th style={{textAlign:'center'}}>Date</th>
+                    <th style={{textAlign:'center'}}>From</th>
+                    <th style={{textAlign:'center'}}>To</th>
+                    <th style={{textAlign:'center'}}>Price</th>
+                    <th style={{textAlign:'center', width:'50px'}}>Cancel</th>
                   </tr>
-                ))}
-              </table>
+                  {userBooking?.map((booking, index)=>(
+                    <tr key={booking?._id}>
+                      <td style={{textTransform:'capitalize', padding:'15px 10px'}}>{booking.name}</td>
+                      <td>{booking.email}</td>
+                      <td>{booking.address}</td>
+                      <td style={{textAlign:'center'}}>{booking.sportType}</td>
+                      <td style={{textAlign:'center'}}>{booking.number.toString().substring(0, 10)}</td>
+                      <td style={{width:'90px', textAlign:'center'}}>{moment(booking.date).format('DD MMM')}</td>
+                      <td style={{textAlign:'center'}}>{booking.from}</td>
+                      <td style={{textAlign:'center'}}>{booking.to}</td>
+                      <td style={{textAlign:'center'}}>₹{booking.price}</td>
+                      <td style={{textAlign:'center', cursor:'pointer'}} onClick={() => handleDelete(booking._id, index)}><DeleteIcon/></td>
+                    </tr>
+                  ))}
+                </table>
+              )}
+              
+            {isCorprateActive && (
+            <table style={{ borderCollapse:'collapse', width:'100%'}}>
+            <tr>
+                <th>Enquirer</th>
+                <th>Email</th>
+                <th>Company</th>
+                <th style={{textAlign:'center'}}>Sport</th>
+                <th style={{textAlign:'center'}}>Phone</th>
+                <th style={{textAlign:'center'}}>Date</th>
+                <th style={{textAlign:'center', width:'60px'}}>Players</th>
+                <th style={{textAlign:'center'}}>From</th>
+                <th style={{textAlign:'center'}}>To</th>
+                <th style={{width:'50px', textAlign:'center'}}>Price</th>
+                <th style={{width:'50px'}}>Cancel</th>
+            </tr>
+            {userCorporateBooking?.map((booking, index)=>(
+                <tr key={booking?._id}>
+                    <td style={{textTransform:'capitalize', padding:'15px 10px'}}>{booking.enquirer}</td>
+                    <td style={{paddingLeft:'10px'}}>{booking.email}</td>
+                    <td style={{paddingLeft:'13px'}}>{booking.company}</td>
+                    <td style={{textAlign:'center'}}>{booking.sportsType}</td>
+                    <td style={{textAlign:'center'}}>{booking.number.toString().substring(0, 10)}</td>
+                    <td style={{width:'90px', textAlign:'center'}}>{moment(booking.date).format('DD MMM')}</td>
+                    <td style={{textAlign:'center'}}>{booking.players}</td>
+                    <td style={{textAlign:'center'}}>{booking.from}</td>
+                    <td style={{textAlign:'center'}}>{booking.to}</td>
+                    <td style={{textAlign:'center'}}>₹{booking.price}</td>
+                    <td style={{textAlign:'center', cursor:'pointer'}} onClick={() => handleDeleteCorporate(booking._id, index)}><DeleteIcon/></td>
+                </tr>
+            ))}
+        </table>
+        )}
             </div>
-            )}
+          )}
         </div>
             
         </div>

@@ -17,7 +17,7 @@ const bookSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    sport:{
+    sportType:{
         type: String
     },
     players:{
@@ -36,7 +36,7 @@ const bookSchema = mongoose.Schema({
       required: true
     },
     price:{
-      type: Number
+      type: String
     }
 })
 

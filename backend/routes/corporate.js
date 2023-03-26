@@ -17,23 +17,46 @@ router.get('/', async(req,res) =>{
 router.post('/', async(req,res) =>{
     
     const post = req.body  
-    const { date, from, to } = post; 
+    const {date, from, to, players} = post
 
     const newPost = new Corporate({...post})
     try {
-        
-        const sameDate = await Corporate.findOne({date})
-        console.log('sameDate',sameDate)
-        const sameTime = await Corporate.find({from: from, to:to})
-        if(sameDate && sameTime) 
-        return res.status(404).json({ status: false, message: 'This slot has already been booked'})
+        const bookings = await Corporate.find({ date });
 
-        await newPost.save()
+        // Convert the start and end times to Date objects for comparison
+        const newStartTime = new Date(date + 'T' + from);
+        const newEndTime = new Date(date + 'T' + to);
+      
+        // Check for overlaps with existing bookings
+        const isOverlap = bookings.some(booking => {
+          const existingStartTime = new Date(date + 'T' + booking.from);
+          const existingEndTime = new Date(date + 'T' + booking.to);
+      
+          return (
+            (newStartTime >= existingStartTime && newStartTime < existingEndTime) ||
+            (newEndTime > existingStartTime && newEndTime <= existingEndTime)
+          );
+        });
+      
+        if (isOverlap) {
+          return res.status(400).json({ message: 'There is already a booking at this time.' });
+        }
+      
 
-        res.status(201).send(newPost)
+      if(players > 15) return res.status(404).json({ status: false, message: `Number of players cannot exceed by 15`})
+
+      await newPost.save()
+      res.status(201).send(newPost)
     } catch (error) {
         res.status(409).send(error)
     }
+})
+
+router.delete('/:id', async(req, res)=>{
+    const { id } = req.params;
+
+    await Corporate.findByIdAndRemove(id)
+    res.json('Reservation Deleted !!!')
 })
 
 export default router

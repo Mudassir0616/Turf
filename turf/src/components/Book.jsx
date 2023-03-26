@@ -11,20 +11,18 @@ import turf5 from '../images/turf5.jpg'
 import MyLocationIcon from '@mui/icons-material/MyLocation';
 import { toast, ToastContainer } from 'react-toastify'
 import moment from 'moment'
+import GooglePayButton from '@google-pay/button-react'
 
 
 const Book = () => {
-
-  const url = `http://localhost:4001/booking`
-
   const user = JSON.parse(localStorage.getItem('userProfile'))
-  const [bookingData, setBookingData] = useState({ name: user?.name, email: user?.email, number: user?.phone, address:'', sportsType:'', date:'', from:'', to:'', price: 0})
+  const [bookingData, setBookingData] = useState({ name: user?.name, email: user?.email, number: user?.phone, players: null, address:'', sportType:'', date: new Date(), from:'', to:'', price: ''})
   const [img, setImg] = useState(football)
   const [isCorprateActive, setisCorprateActive] = useState(false)
   const [isIndividualActive, setisIndividualActive] = useState(false)
-  const [bookingPrice, setBookingPrice] = useState(0)
-  const [corporateBooking, setCorporateBooking] = useState({ purpose:'', date:'', from:'', to:'', enquirer: user?.name, email: user?.email, number: user?.phone, company:'', sportsType:'', price: 0 })
-  const [individualPrice, setIndividualPrice] = useState(0)
+  const [bookingPrice, setBookingPrice] = useState('0')
+  const [corporateBooking, setCorporateBooking] = useState({ purpose:'', date:new Date(), from:'', to:'', enquirer: user?.name, email: user?.email, players: null, number: user?.phone, company:'', sportsType:'', price: '' })
+  const [individualPrice, setIndividualPrice] = useState('0')
 
   const images = [
     turf1,
@@ -59,8 +57,8 @@ const Book = () => {
   // console.log('Daattttteeeeeeee',currdate)
 
   const handleClear = ()=>{
-    setBookingData({ name: user?.name, email: user?.email, number: user?.phone, address:'', sportsType:'', date:'', from:'', to:'', price: 0})
-    setCorporateBooking({ purpose:'', date:'', from:'', to:'', enquirer: user?.name, email: user?.email, number: user?.phone, company:'', sportsType:'', price: 0 })
+    setBookingData({ name: user?.name, email: user?.email, number: user?.phone, address:'', players: 0, sportsType:'', date:'', from:'', to:'', price: 0})
+    setCorporateBooking({ purpose:'', date:'', from:'', to:'', enquirer: user?.name, email: user?.email, number: user?.phone, company:'', players:0, sportsType:'', price: 0 })
   }
 
   const handleChange =(e)=>{
@@ -71,27 +69,27 @@ const Book = () => {
     const hoursDifference = bookingData?.to.split(':')[0] - bookingData?.from.split(':')[0];
     console.log(hoursDifference)
     if (hoursDifference === 1) {
-      setIndividualPrice(1800);
+      setIndividualPrice('1800');
     } else if (hoursDifference === 2) {
-      setIndividualPrice(2400);
+      setIndividualPrice('2400');
     } else if (hoursDifference === 3) {
-      setIndividualPrice(2900);
+      setIndividualPrice('2900');
     } else if (hoursDifference === 4) {
-      setIndividualPrice(3300);
+      setIndividualPrice('3300');
     } else if (hoursDifference > 5) {
-      setIndividualPrice(0);
+      setIndividualPrice('0');
       toast("You're limit has been exceeded", {
         type:'error',
         position:'bottom-right'
       });
     } else if (bookingData?.to && hoursDifference < 0) {
-      setIndividualPrice(0);
+      setIndividualPrice('0');
       toast('Invalid Time', {
         type:'error',
         position:'bottom-right'
       });
     } else if (hoursDifference === 0) {
-      setIndividualPrice(0);
+      setIndividualPrice('0');
     }
   }, [bookingData]);
   
@@ -99,20 +97,27 @@ const Book = () => {
     setBookingData(prev => ({ ...prev, price: individualPrice }));
   }, [individualPrice]);
 
-  console.log('bkkkkkkkkkkkkk',bookingData)
+  console.log('bkkkkkkkkkkkkk',corporateBooking)
 
   const handleSubmit = async(e) =>{
-    e.preventDefault()
-    
+    // e.preventDefault()
     try {
-      const postData = await axios.post(url, bookingData)
-      console.log(postData)
-      alert('Succesfully Booked')
+  
+      const postData = await axios.post(`http://localhost:4001/booking`, bookingData)
+      console.log('pooostttttt',postData)
+      toast(`You are Booked for ${moment(bookingData.date).format('DD MMM')}`, {
+        type:'success',
+        position:'bottom-right'
+    })
       handleClear()
       history.push('/dashboard')
 
     } catch (error) {
-      alert(error?.response?.data?.message)
+      console.log(error)
+      toast(`${error?.response?.data?.message}`, {
+        type:'error',
+        position:'bottom-right'
+    })
     }
   }
 
@@ -146,27 +151,27 @@ const Book = () => {
     const hoursDifference = corporateBooking?.to.split(':')[0] - corporateBooking?.from.split(':')[0];
     
     if (hoursDifference === 1) {
-      setBookingPrice(1800);
+      setBookingPrice('1800');
     } else if (hoursDifference === 2) {
-      setBookingPrice(2400);
+      setBookingPrice('2400');
     } else if (hoursDifference === 3) {
-      setBookingPrice(2900);
+      setBookingPrice('2900');
     } else if (hoursDifference === 4) {
-      setBookingPrice(3300);
+      setBookingPrice('3300');
     } else if (hoursDifference > 5) {
-      setBookingPrice(0);
+      setBookingPrice('0');
       toast("You're limit has been exceeded", {
         type:'error',
         position:'bottom-right'
       });
     } else if (corporateBooking?.to && hoursDifference < 0) {
-      setBookingPrice(0);
+      setBookingPrice('0');
       toast('Invalid Time', {
         type:'error',
         position:'bottom-right'
       });
     } else if (hoursDifference === 0) {
-      setBookingPrice(0);
+      setBookingPrice('0');
     }
   }, [corporateBooking]);
   
@@ -186,15 +191,15 @@ const Book = () => {
   }
 
   const handleCorporateSubmit = async(e)=>{
-    e.preventDefault()
+    // e.preventDefault()
     try {
   
       const postData = await axios.post(`http://localhost:4001/corporate-booking`, corporateBooking)
-      console.log('pooostttttt',postData)
-      toast(`You are Booked for ${moment(corporateBooking.date).format('DD MMM')}`, {
-        type:'success',
-        position:'bottom-right'
-    })
+    //   console.log('pooostttttt',postData)
+    //   toast(`You are Booked for ${moment(corporateBooking.date).format('DD MMM')}`, {
+    //     type:'success',
+    //     position:'bottom-right'
+    // })
       handleClear()
       history.push('/dashboard')
 
@@ -206,21 +211,99 @@ const Book = () => {
     }
   } 
 
+  // const handleCorporateSubmit = (e)=>{
+  //   e.preventDefault()
+  //   try {
+  
+  //     axios.post(`http://localhost:4001/create-checkout-session`, corporateBooking).then((res) => {
+  //       if(res.data.url){
+  //         window.location.href = res.data.url
+  //       }
+  //     }).catch(err => console.log(err))
+      
+  //   } catch (error) {
+  //     toast(`${error?.response?.data?.message}`, {
+  //       type:'error',
+  //       position:'bottom-right'
+  //   })
+  //   }
+  // } 
+
+  // key_id: 'rzp_test_x5TxpJ4BAs6JsK',
+  // key_secret: 'GnlVYMovZYvrmA2HdglloMpn',
+  const initPayment = (data) => {
+		const options = {
+			key: "rzp_test_x5TxpJ4BAs6JsK",
+			amount: data.amount,
+			currency: data.currency,
+			name: user?.name,
+			description: "Test Transaction",
+			order_id: data.id,
+			handler: async (response) => {
+				try {
+					const verifyUrl = "http://localhost:4001/api/payment/verify";
+					const { data } = await axios.post(verifyUrl, response);
+					console.log(data);
+          if(isIndividualActive){
+            handleSubmit()
+          } else if(isCorprateActive){
+            handleCorporateSubmit()
+          }
+				} catch (error) {
+					console.log(error);
+				}
+			},
+			theme: {
+				color: "#3399cc",
+			},
+		};
+		const rzp1 = new window.Razorpay(options);
+		rzp1.open();
+	};
+
+  const handlePayment = async (e) => {
+    e.preventDefault()
+		try {
+      if(isCorprateActive){
+
+        const orderUrl = "http://localhost:4001/api/payment/orders";
+        const { data } = await axios.post(orderUrl, { amount: corporateBooking.price });
+        console.log('razorpay',data);
+        initPayment(data.data);
+      } else if(isIndividualActive){
+        const orderUrl = "http://localhost:4001/api/payment/orders";
+        const { data } = await axios.post(orderUrl, { amount: bookingData.price });
+        console.log('Individual RRRazorpay',data);
+        initPayment(data.data);
+      }
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
   return (
     <div style={{display:'flex', justifyContent:'center', margin:'3rem 7rem', flexDirection:'column', gap:'3rem'}}>
       <ToastContainer/>
       <div>
-        <h1 style={{color:'darkgreen', margin:'0'}}>UMRB Turf, Azad Nagar - by SPORLOC</h1>
+        <h1 style={{color:'darkgreen', margin:'0'}}>St. Andrews TurfPark</h1>
         <div style={{display:'flex', gap:'2rem'}}>
           <div style={{width:'600px', height:'400px', background:'black'}}>
             <img src={img} width="100%" height="100%" style={{objectFit:'cover'}}/>
           </div>
           <div style={{width:'300px', padding:'2rem 0'}}>
-            <p>Backgate, Andheri Sports Complex, Veera Desai Road, Next To Azad Nagar Metro Station, Mumbai 400053.</p>
+            <p>St. Andrews School Ground, St Domnic Rd, Bandra West, Mumbai, Maharashtra 400050</p>
             <Link to={'/sitemap'} style={{textDecoration:'none'}}>
             <p style={{display:'flex', alignItems:'center', fontSize:'15px', fontFamily:'sans-serif', opacity:'0.8', fontWeight:'100'}}>Map View&nbsp;<MyLocationIcon style={{color:'gray', fontSize:'16px'}}/></p>
             </Link>
-          <a href="#book"><button style={{padding:'10px 15px'}}>BOOK NOW</button></a>
+            <p>Ammenities:</p>
+            <div style={{display:'flex',flexWrap:'wrap',gap:'10px'}}>
+            {
+            amenities.map((ammitie)=>(
+              <div style={{backgroundColor:'lightgrey',width:'90px',height:'30px',display:'flex',alignItems:'center',justifyContent:'center',fontSize:'11px',fontWeight:'bold'}}><p>{ammitie}</p></div>
+                
+            ))
+            }</div>
+          <a href="#book"><button style={{padding:'15px 30px',margin:'10px 0' ,background:'orange',color:'white',border:'none',fontSize:'20px',fontWeight:'600'}}>BOOK NOW</button></a>
           </div>
         </div>
         <div style={{display:'flex', gap:'1rem', margin:'0.5rem 0'}}>
@@ -232,24 +315,30 @@ const Book = () => {
 
       {/* Select Booking Type */}
       <div style={{width:'60%'}} id='book'>
-      <h2 style={{color:'darkgreen', margin:'0'}}>Select booking Type:</h2>
-      <div style={{display:'flex', margin:'2rem 0', gap:'2px'}}>
-        <button onClick={handleIndividual} style={{background: isIndividualActive ? 'orange': '', color: isIndividualActive ? 'white': '', padding:'10px', border:'none', borderRadius:'1px', fontSize:'17px', cursor:'poniter'}} className="type-btn">Individual</button>
-        <button onClick={handleCorporate} style={{background: isCorprateActive ? 'orange': '', color: isCorprateActive ? 'white': '', padding:'10px', border:'none', borderRadius:'1px', fontSize:'17px', cursor:'poniter'}} className="type-btn">Corporate</button>
-      </div>
+      {user ? (
+        <>
+        <h2 style={{color:'darkgreen', margin:'0'}}>Select booking Type:</h2>
+        <div style={{display:'flex', margin:'2rem 0', gap:'2px'}}>
+          <button onClick={handleIndividual} style={{background: isIndividualActive ? 'orange': '', color: isIndividualActive ? 'white': '', padding:'10px', border:'none', borderRadius:'1px', fontSize:'17px', cursor:'poniter'}} className="type-btn">Individual</button>
+          <button onClick={handleCorporate} style={{background: isCorprateActive ? 'orange': '', color: isCorprateActive ? 'white': '', padding:'10px', border:'none', borderRadius:'1px', fontSize:'17px', cursor:'poniter'}} className="type-btn">Corporate</button>
+        </div>
+        </>
+      ) : ('Please login')}
+      
 
       {/* Individual */}
       {isIndividualActive && (
         <div style={{display:'flex', alignItems:'flex-start', justifyContent:'flex-start'}}>
-        <form onSubmit={handleSubmit} style={{boxShadow:'0px 0px 15px rgba(0,0,0,0.8)', padding:'2rem', width:'100%'}}>
+        <form onSubmit={handlePayment} style={{boxShadow:'0px 0px 15px rgba(0,0,0,0.8)', padding:'2rem', width:'100%'}}>
           <h3 style={{color:'darkgreen', margin:'0'}}>Add Booking Enquiry</h3>
           <hr style={{border:'1px solid gray', height:'0', borderTop:'none'}}/>
           <div style={{display:'flex', flexDirection:'column', gap:'20px', margin:'20px 0',}}>
-            <TextField variant='outlined' onChange={handleChange} value={user?.name} label="Enquirer's Name" name='enquirer' fullWidth/>
-            <TextField variant='outlined' onChange={handleChange} value={user?.email} type='email' label='Email' name='email' fullWidth/>
-            <TextField variant='outlined' onChange={handleChange} value={user?.phone} type='number' label='+ 91' name='number' fullWidth/>
-            <TextField variant='outlined' onChange={handleChange} name='address' label='Your Address' fullWidth multiline rows={4}/>
-            <TextField variant='outlined' onChange={handleChange} name='date' type='date' placeholder='Date' fullWidth required inputProps={{
+            <TextField variant='outlined' value={user?.name} label="Enquirer's Name" fullWidth/>
+            <TextField variant='outlined' value={user?.email} type='email' label='Email' name='email' fullWidth/>
+            <TextField variant='outlined' value={user?.phone} type='tel' label='+ 91' name='number' fullWidth/>
+            <TextField variant='outlined' onChange={handleChange} value={bookingData.players} type='number' inputProps={{ maxLength: 15 }} label='Players' name='players' fullWidth/>
+            <TextField variant='outlined' onChange={handleChange} name='address' value={bookingData.address} label='Your Address' fullWidth multiline rows={4}/>
+            <TextField variant='outlined' onChange={handleChange} name='date' value={bookingData.date} type='date' placeholder='Date' fullWidth required inputProps={{
               min: new Date().toISOString().substr(0, 10),
             }}/>
             <div style={{display:'flex', gap:'2rem'}}>
@@ -260,6 +349,7 @@ const Book = () => {
                 <MenuItem value={time}>{time}</MenuItem>
               ))}
             </Select>
+            
             </div>
 
             <div style={{flex:'1'}}>
@@ -273,7 +363,7 @@ const Book = () => {
             </div>
             <div>
             <InputLabel id="time-slot-select-label">Select Sports Type</InputLabel>
-            <Select value={corporateBooking.sportsType} name='sportsType' onChange={handleChange} labelId="time-slot-select-label" fullWidth>
+            <Select value={bookingData.sportType} name='sportType' onChange={handleChange} labelId="time-slot-select-label" fullWidth>
               {sportsType.map(sport => (
                 <MenuItem value={sport}>{sport}</MenuItem>
               ))}
@@ -292,7 +382,7 @@ const Book = () => {
       {/* Corporate */}
       {isCorprateActive && (
         <div style={{display:'flex', alignItems:'flex-start', justifyContent:'flex-start'}}>
-          <form onSubmit={handleCorporateSubmit} style={{boxShadow:'0px 0px 15px rgba(0,0,0,0.8)', padding:'2rem', width:'100%'}}>
+          <form onSubmit={handlePayment} style={{boxShadow:'0px 0px 15px rgba(0,0,0,0.8)', padding:'2rem', width:'100%'}}>
             <h3 style={{color:'darkgreen', margin:'0'}}>Add Booking Enquiry</h3>
             <hr style={{border:'1px solid gray', height:'0', borderTop:'none'}}/>
             <div style={{display:'flex', flexDirection:'column', gap:'20px', margin:'20px 0',}}>
@@ -319,10 +409,11 @@ const Book = () => {
               </Select>
               </div>
               </div>
-              <TextField variant='outlined' onChange={handleChangeCorprate} value={user?.name} label="Enquirer's Name" name='enquirer' fullWidth/>
-              <TextField variant='outlined' onChange={handleChangeCorprate} value={user?.email} type='email' label='Email' name='email' fullWidth/>
-              <TextField variant='outlined' onChange={handleChangeCorprate} value={user?.phone} type='number' label='+ 91' name='number' fullWidth/>
-              <TextField variant='outlined' onChange={handleChangeCorprate} label='Company name' name='company' fullWidth/>
+              <TextField variant='outlined' value={user?.name} label="Enquirer's Name" name='enquirer' fullWidth/>
+              <TextField variant='outlined' value={user?.email} type='email' label='Email' name='email' fullWidth/>
+              <TextField variant='outlined' value={user?.phone} type='tel' label='+ 91' name='number' fullWidth/>
+              <TextField variant='outlined' onChange={handleChangeCorprate} value={corporateBooking.company} label='Company name' name='company' fullWidth/>
+              <TextField variant='outlined' onChange={handleChangeCorprate} type='number' value={corporateBooking.players} inputProps={{ maxLength: 15 }} label='Players' name='players' fullWidth/>
               <div>
               <InputLabel id="time-slot-select-label">Select Sports Type</InputLabel>
               <Select value={corporateBooking.sportsType} name='sportsType' onChange={handleChangeCorprate} labelId="time-slot-select-label" fullWidth>
@@ -341,10 +432,23 @@ const Book = () => {
         </div>
       )}
 
-      <div style={{marginTop:'4rem'}}>
-        <h2>Rules</h2>
-        {/* {Create Rules} */}
-      </div>
+<div style={{marginTop:'4rem'}}>
+        <h2 style={{fontFamily:'fantasy',letterSpacing:'1px',color:'#33d664'}}>Rules:</h2>
+       
+        </div>
+        <div style={{fontFamily:'sans-serif',letterSpacing:'1px',lineHeight:'40px'}}>
+          <li>Follow safety procedures.</li>
+          <li>No Spitting.</li>
+          <li>No smoking, alcohol, or drugs.</li>
+          <li>No pets except service animals.</li>
+          <li>Owner may cancel or reschedule.</li>
+          <li>Authorized use only.</li>
+        </div>
+        
+     
+    
+      
+    
       </div>
     </div>
   )

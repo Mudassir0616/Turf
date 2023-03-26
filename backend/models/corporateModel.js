@@ -17,7 +17,10 @@ const corporateSchema = mongoose.Schema({
     required: true
   },
   enquirer:{
-    type:String
+    type: String
+  },
+  players:{
+    type: Number
   },
   email:{
     type: String
@@ -33,7 +36,7 @@ const corporateSchema = mongoose.Schema({
     required: true
   },
   price:{
-    type: Number
+    type: String
 }
 })
 

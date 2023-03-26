@@ -15,6 +15,8 @@ import ResumeTemplate from './components/ResumeTemplate';
 import ResumeGenerator from './components/ResumeGenerator';
 import SiteMap from './components/SiteMap';
 import Footer from './components/Footer';
+import Faq from './components/Faq';
+import Terms from './components/Term';
 
 function App() {
   return (
@@ -34,6 +36,8 @@ function App() {
         <Route path={'/reset'} exact component={ResetPass}/>
         <Route path={`/dashboard`} exact component={Dashboard}/>
         <Route path={`/sitemap`} exact component={SiteMap}/>
+        <Route path={`/faq`} exact component={Faq}/>
+        <Route path={`/terms`} exact component={Terms}/>
       </Switch>
       <Footer/>
     </div>
