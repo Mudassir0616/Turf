@@ -17,9 +17,20 @@ const Faq = () => {
             expandIcon={<ExpandMoreIcon />}
             aria-controls="panel-content"
           >
-            <p className='faq-que'>
-              { 'How do I contact customer support if I have questions about my booking?'}
-            </p>
+            <table style={{ borderCollapse:'collapse', width:'100%'}}>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Address</th>
+                <th>Sport</th>
+                <th style={{textAlign:'center'}}>Turf</th>
+                <th style={{textAlign:'center'}}>Date</th>
+                <th>From</th>
+                <th>To</th>
+                <th>Price</th>
+                <th>Cancel</th>
+            </tr>
+            </table>
           </AccordionSummary>
             <AccordionDetails>
               <p className='faq-ans'>

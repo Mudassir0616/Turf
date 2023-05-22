@@ -10,6 +10,8 @@ import reviewRoutes from './routes/review.js'
 import profileRoutes from './routes/profiles.js'
 import corporateRoutes from './routes/corporate.js'
 import paymentRoutes from './routes/payment.js'
+import conversationRoutes from './routes/conversation.js'
+import MessageRoutes from './routes/message.js'
 import Stripe from 'stripe'
 
 const app = express()
@@ -29,6 +31,9 @@ app.use('/reviews', reviewRoutes)
 app.use('/profile', profileRoutes)
 app.use('/corporate-booking', corporateRoutes)
 app.use("/api/payment/", paymentRoutes);
+app.use("/conversation", conversationRoutes)
+app.use("/chats", MessageRoutes)
+
 
 app.post('/create-checkout-session', async (req, res) => {
     const { price, date, from, to } = req.body;

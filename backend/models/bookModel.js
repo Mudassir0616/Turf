@@ -37,6 +37,9 @@ const bookSchema = mongoose.Schema({
     },
     price:{
       type: String
+    },
+    turfName: {
+      type: String
     }
 })
 

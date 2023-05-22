@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useEffect, useState} from 'react'
 import { Link } from 'react-router-dom'
 import map from '../images/mumbai.jpg'
 import search from '../images/search.png'
@@ -7,11 +7,19 @@ import play from '../images/play.png'
 import sports from '../images/tennis-player.png'
 import pals from '../images/meet-pals.png'
 import Footer from './Footer'
+import {io} from 'socket.io-client'
+import { ToastContainer, toast } from 'react-toastify'
 
 const Home = () => {
+  const [socket, setSocket] = useState(null)
+
+  // useEffect(()=>{
+  //   setSocket(io(`ws://localhost:8900`))
+  // },[])
   
   return (
     <div>
+      <ToastContainer/>
       <div className="main-frame">
         <div style={{position:'absolute', top:'20%', left:'10%', width:'400px', background:'none', zIndex:'40', lineHeight:'54px'}}>
           <h1 style={{fontSize:'60px', color:'white', display:'flex', flexWrap:'wrap', margin:'10px 0', letterSpacing:'4px', fontWeight:'900', fontFamily:'sans-serif'}}>YOUR NEAREST TURF</h1>

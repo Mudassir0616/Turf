@@ -10,6 +10,15 @@ const router = express.Router()
 
 const api_key = "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"
 
+router.get('/', async(req, res)=>{
+    try {
+        const user = await Admin.find()
+
+        res.json(user)
+    } catch (error) {
+        console.log(error)
+    }
+})
 
 router.post('/signIn', async(req,res)=>{
     const { email, password } = req.body
@@ -25,7 +34,7 @@ router.post('/signIn', async(req,res)=>{
 
         const token = jwt.sign({email: signedUser.email, id: signedUser._id}, 'turf', {expiresIn:'3min'})
 
-        res.status(200).json({admin:true, id: signedUser._id, email: signedUser.email, phone: signedUser.phone, name: signedUser.name, userImg: signedUser.userImg, token})
+        res.status(200).json({admin:true, id: signedUser._id, email: signedUser.email, number: signedUser.phone, name: signedUser.name, userImg: signedUser.userImg, token})
 
         
     } catch (error) {
@@ -38,11 +47,13 @@ router.patch('/:id', async(req,res)=>{
     const id  = req.params.id;
     const body = req.body
 
-    const update = await Admin.findByIdAndUpdate(id, body, {new: true})
     try { 
-        res.send(update)
+    const update = await Admin.findByIdAndUpdate(id, body, {new: true})
+    const response = { id: update.id, ...update._doc };
+    res.send(response)
+    
     } catch (error) {
-        console.log(error)
+      res.send(error)
     }
 })
     
@@ -69,9 +80,7 @@ router.patch('/:id', async(req,res)=>{
                 res.status(201).send(user)
                 } else{
                     res.status(404).json('Invalid OTP')
-                }
-            
-        
+                }      
     })
     
     router.post('/emailSent', async(req,res) =>{

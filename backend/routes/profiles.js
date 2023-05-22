@@ -22,15 +22,32 @@ router.patch('/:id', async(req,res)=>{
     const id  = req.params.id;
     const body = req.body
 
-    const update = await Profile.findByIdAndUpdate(id, body, {new: true})
+    try {
+        const update = await Profile.findByIdAndUpdate(id, body, {new: true})
+    
+        res.send(update)
+        
+    } catch (error) {
+        res.send(error)
+    }
 
-    res.send(update)
 })
 
 router.get('/', async(req,res) =>{
     
     try {
         const user = await Profile.find()
+
+        res.json(user)
+    } catch (error) {
+        console.log(error)
+    }
+})
+
+router.get('/:userId', async(req,res) =>{
+    
+    try {
+        const user = await Profile.find({_id : req.params.userId})
 
         res.json(user)
     } catch (error) {

@@ -27,6 +27,7 @@ const Reservation = () => {
         { title: "Email", field: "email", },
         { title: "Address", field: "address"},
         { title: "Sport", field: 'sportType' },
+        { title: "Turf", field: 'turfName' },
         { title: "Players", field: "players" },
         { title: "Date", field: 'date' },
         { title: "From", field: "from" },
@@ -37,6 +38,7 @@ const Reservation = () => {
     const corporate = [
         { title: "Enquirer", field: "enquirer", },
         { title: "Email", field: "email", },
+        { title: "Turf", field: "turf", },
         { title: "Sport", field: 'sportsType' },
         { title: "Phone", field: 'number' },
         { title: "Players", field: "players" },
@@ -194,8 +196,8 @@ const Reservation = () => {
                 <th>Name</th>
                 <th>Email</th>
                 <th>Address</th>
-                <th>Sport</th>
-                <th>Phone</th>
+                <th style={{textAlign:'center'}}>Turf</th>
+                <th style={{textAlign:'center'}}>Sport</th>
                 <th style={{textAlign:'center'}}>Date</th>
                 <th>From</th>
                 <th>To</th>
@@ -207,8 +209,8 @@ const Reservation = () => {
                     <td style={{textTransform:'capitalize'}}>{booking.name}</td>
                     <td>{booking.email}</td>
                     <td>{booking.address}</td>
-                    <td>{booking.sportType}</td>
-                    <td style={{textAlign:'center'}}>{booking.number.toString().substring(0, 10)}</td>
+                    <td style={{textAlign:'center', textTransform:'capitalize'}}>{booking.turfName}</td>
+                    <td style={{textAlign:'center'}}>{booking.sportType}</td>
                     <td style={{width:'90px', textAlign:'center'}}>{moment(booking.date).format('DD MMM')}</td>
                     <td>{booking.from}</td>
                     <td>{booking.to}</td>
@@ -224,22 +226,25 @@ const Reservation = () => {
             <tr>
                 <th>Enquirer</th>
                 <th>Email</th>
-           
-                <th>Sport</th>
+                <th style={{textAlign:'center'}}>Company</th>
+                <th style={{textAlign:'center'}}>Turf</th>
+                <th style={{textAlign:'center'}}>Sport</th>
                 <th style={{textAlign:'center'}}>Phone</th>
                 <th style={{textAlign:'center'}}>Date</th>
                 <th style={{textAlign:'center'}}>Players</th>
                 <th>From</th>
                 <th>To</th>
                 <th>Price</th>
-                <th>Cancel</th>
+                <th style={{textAlign:'center'}}>Cancel</th>
             </tr>
             {corporateData?.map((booking, index)=>(
                 <tr key={booking?._id}>
                     <td style={{textTransform:'capitalize'}}>{booking.enquirer}</td>
                     <td>{booking.email}</td>
-                    <td>{booking.sportsType}</td>
-                    <td style={{textAlign:'center'}}>{booking.number.toString().substring(0, 10)}</td>
+                    <td style={{textAlign:'center'}}>{booking.company}</td>
+                    <td style={{textAlign:'center'}}>{booking.turf}</td>
+                    <td style={{textAlign:'center'}}>{booking.sportsType}</td>
+                    <td style={{textAlign:'center'}}>{booking?.number?.toString()?.substring(0, 10)}</td>
                     <td style={{width:'90px', textAlign:'center'}}>{moment(booking.date).format('DD MMM')}</td>
                     <td style={{textAlign:'center'}}>{booking.players}</td>
                     <td>{booking.from}</td>

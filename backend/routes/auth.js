@@ -10,6 +10,27 @@ const router = express.Router()
 
 const api_key = "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"
 
+router.get('/:userId', async(req,res) =>{
+    
+    try {
+        const user = await Users.find({_id : req.params.userId})
+
+        res.json(user)
+    } catch (error) {
+        console.log(error)
+    }
+})
+
+router.get('/', async(req,res) =>{
+    
+    try {
+        const user = await Users.find()
+
+        res.json(user)
+    } catch (error) {
+        console.log(error)
+    }
+})
 
 router.post('/signIn', async(req,res)=>{
     const { email, password } = req.body
@@ -17,7 +38,7 @@ router.post('/signIn', async(req,res)=>{
     try {
         const signedUser = await Users.findOne({ email })
         
-        if(!signedUser) return res.status(404).json({status: false, message: 'Please Sign In'})
+        if(!signedUser) return res.status(404).json({status: false, message: 'Account not Registered'})
 
         const isPasswordCorrect = await bcrypt.compare(password, signedUser.password)
 
@@ -25,7 +46,7 @@ router.post('/signIn', async(req,res)=>{
 
         const token = jwt.sign({email: signedUser.email, id: signedUser._id}, 'turf', {expiresIn:'3min'})
 
-        res.status(200).json({admin: false, name: signedUser.name, email: signedUser.email, id: signedUser._id, phone: signedUser.number, token})
+        res.status(200).json({admin: false, name: signedUser.name, email: signedUser.email, id: signedUser._id, number: signedUser.number, token})
 
         
     } catch (error) {
@@ -62,7 +83,7 @@ router.post('/signUp', async(req,res)=>{
         //     html: `<h1>Welcome ${result.name}</h1>`
         // })
 
-         res.status(200).json({id: result._id, admin: false, name: result.name, email: result.email, phone: result.number, token})
+         res.status(200).json({id: result._id, admin: false, name: result.name, email: result.email, number: result.number, token})
          
         } catch (error) {
             res.status(500).json(error)

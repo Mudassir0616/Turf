@@ -35,6 +35,9 @@ const corporateSchema = mongoose.Schema({
     type: String,
     required: true
   },
+  turf: {
+    type: String
+  },
   price:{
     type: String
 }

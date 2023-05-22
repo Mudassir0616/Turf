@@ -12,6 +12,12 @@
   background-position: center;
   background-repeat: no-repeat;
 }
+.chats-background{
+  background-image: url('./images/wallpaper.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
 .header{
   display: flex;
   flex-wrap: wrap;
@@ -125,8 +131,39 @@
 }
 
 tr:nth-child(even) {
-  background-color: #348C31;
+  background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);
   color: white;
+}
+
+.blur {
+  
+  background-color: rgba(255,255,255,0.5);
+  backdrop-filter: blur(10px);
+  z-index: -1;
+  
+}
+
+/* .blur::before {
+  content: '';
+  background-color: rgba(255,255,255,0.5);
+  
+  backdrop-filter: blur(5px);
+  z-index: -1;
+} */
+
+.payment td, th{
+  border: 1px solid lightgray;
+  text-align: left;
+  padding: 13px;
+  border-top: none;
+}
+
+.payment td{
+  border-left: none;
+}
+
+.payment th{
+  border-right: none;
 }
 
 .main-frame{
@@ -141,9 +178,9 @@ tr:nth-child(even) {
 }
 
 @keyframes slider{
-  0%{ background-image: url('./images/football.webp');}
-  45%{ background-image: url('./images/ball.jfif');}
-  80%{ background-image: url('./images/players.jfif');}
+  40%{ background-image: url('./images/turf1.jpg');}
+  80%{ background-image: url('./images/turf2.jpg');}
+  /* 80%{ background-image: url('./images/turf5.jpg');} */
 }
 
 .banner-fade{
@@ -161,6 +198,16 @@ tr:nth-child(even) {
   background-color: #3e8e41;
   color: white;
   border: none;
+}
+
+.turfs{
+  box-shadow: 1px 1px 5px  gray;
+  transition: 0.4s;
+  margin: 1rem 0 4rem 0;
+}
+.turfs:hover{
+  transform: translateY(-10px);
+  box-shadow: 3px 5px 15px gray;
 }
 
 /* -------------------- reviews -------------------*/
@@ -283,4 +330,96 @@ tr:nth-child(even) {
   background-color: orange;
   color: white;
 }
+
+/* Chats */
+
+.chat_profile:hover{
+  background-color: rgb(233, 231, 231);
+}
+
+.chatBoxWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  height: 100%;
+}
+
+.chatBoxTop {
+  height: 100%;
+  overflow-y: scroll;
+  padding-right: 10px;
+}
+
+.chatBoxBottom {
+  margin-top: 5px;
+  display: flex;
+  background-color: whitesmoke;
+}
+.chatMessageInput{
+  padding: 10px 15px;
+  flex: 1;
+  border-radius: 12px;
+  margin: 1rem;
+  font-size: 19px;
+}
+
+.chatSubmitButton{
+  border: none;
+  cursor: pointer;
+}
+
+.message {
+  display: flex;
+  flex-direction: column;
+}
+
+.messageTop{
+  display: flex;
+  align-items: flex-end;
+}
+
+.messageText{
+  padding: 7px 15px;
+  border-radius: 8px;
+  background-color: #fff;
+  color: black;
+  font-size: 19px;
+  font-family: inherit;
+  max-width: 500px;
+  position: relative;
+    
+}
+
+.messageBottom{
+    font-size: 11px;
+    color: white;
+    font-weight: 500;
+}
+
+.message.own{
+    align-items: flex-end;
+}
+
+.message.own .messageText{
+    background-color: rgb(161, 219, 161);
+    color: white;
+}
+.message-opt{
+  display: flex;
+  align-items: start;
+  gap: 7px;
+  color: rgb(77, 76, 76);
+  border-radius: 4px;
+  font-family: inherit;
+  transition: 0.3s;
+}
+.message-opt:hover{
+  background-color: rgb(202, 201, 201);
+}
+
+.pageBreak{
+  page-break-inside: avoid;
+}
+
 
