@@ -66,12 +66,13 @@
 }
 .sign-btn{
   padding: 10px 15px;
-  background-color: darkgreen;
+  background-color: rgb(212, 235, 212);
   border: none;
   border-radius: 6px;
   transition: 0.3s;
+  font-size: 18px;
   font-weight: 600;
-  color: white;
+  color: darkgreen;
   cursor: pointer;
 }
 .sign-btn:hover{
@@ -168,7 +169,7 @@ tr:nth-child(even) {
 
 .main-frame{
   width: 100%;
-  height: 560px;
+  height: 700px;
   background-image: url('./images/cricket.jpg');
   animation: slider 10s infinite linear;
   object-fit: cover;
